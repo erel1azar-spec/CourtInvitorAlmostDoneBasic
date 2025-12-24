@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtInvitor.Views.NavigataionPageAdmin"
+                xmlns:m="clr-namespace:CourtInvitor.Models"
+                xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+                x:DataType="vm:NavigataionPageAdminVM"
+             Title="NavigataionPageAdmin">
+
+    <Grid>
+        <!-- רקע -->
+        <Image
+        Source="background.png"
+        Aspect="AspectFill"
+        Grid.RowSpan="1"
+        Grid.ColumnSpan="1" />
+
+        <Button
+        FontFamily="MaterialSymbols"
+        Text="{StaticResource IconArrow_left_alt}"
+        FontSize="28"
+        TextColor="White"
+        HorizontalOptions="End"
+        VerticalOptions="Start"
+        Margin="5"
+        ZIndex="1"
+        BackgroundColor="Transparent"
+        Command="{Binding NavBackHomeCommand}"/>
+
+        <!-- תוכן -->
+        <VerticalStackLayout
+        Padding="30"
+        Spacing="15"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+
+            <!-- כפתור 1 -->
+            <Button
+            Text="{x:Static m:Strings.AdminProfile}"
+            Command="{Binding NavToProfileCommand}"
+            FontSize="16"
+            WidthRequest="250"
+            HeightRequest="55"
+            CornerRadius="15"
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            Margin="5"/>
+
+            <!-- כפתור 2 -->
+            <Button
+            Text="{x:Static m:Strings.AdminCreateCourt}"
+            Command="{Binding NavToCreateCourtCommand}"
+            FontSize="16"
+            WidthRequest="250"
+            HeightRequest="55"
+            CornerRadius="15"
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            Margin="5"/>
+
+            <!-- כפתור 3 -->
+            <Button
+            Text="{x:Static m:Strings.AdminReservationsMade}"
+            Command="{Binding NavToReservationsMadeCommand}"
+            FontSize="16"
+            WidthRequest="250"
+            HeightRequest="55"
+            CornerRadius="15"
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            Margin="5"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

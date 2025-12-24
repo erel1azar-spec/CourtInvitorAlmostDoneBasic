@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtInvitor.Views.ProfileClientPage"
+             xmlns:m="clr-namespace:CourtInvitor.Models"
+             xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+             x:DataType="vm:ProfileClientPageVM"
+             IsBusy="{Binding IsBusy}">
+
+    <Grid>
+        <!--  Background Image  -->
+        <Image
+        Grid.RowSpan="1"
+        Grid.ColumnSpan="1"
+        Aspect="AspectFill"
+        Source="background.png" />
+        <!--  Back Arrow Button  -->
+        <Button
+        FontFamily="MaterialSymbols"
+        Text="{StaticResource IconArrow_left_alt}"
+        FontSize="28"
+        TextColor="White"
+        HorizontalOptions="End"
+        VerticalOptions="Start"
+        Margin="5"
+        ZIndex="1"
+        BackgroundColor="Transparent"
+        Command="{Binding NavBackHomeCommand}"/>
+
+
+
+        <VerticalStackLayout
+        Padding="30"
+        Spacing="15"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+            <Border
+            Padding="5"
+            StrokeShape="RoundRectangle 8"
+                StrokeThickness="2">
+                <Entry
+                 Margin="5"
+                ClearButtonVisibility="WhileEditing"
+                FlowDirection="LeftToRight"
+                 FontSize="20"
+                Placeholder="{x:Static m:Strings.FirstName}"
+                 ReturnType="Go"
+                Text="{Binding FirstName}"
+                TextColor="White" />
+            </Border>
+            <Border
+            Padding="5"
+            StrokeShape="RoundRectangle 8"
+                StrokeThickness="2">
+                <Entry
+                 Margin="5"
+                ClearButtonVisibility="WhileEditing"
+                FlowDirection="LeftToRight"
+                 FontSize="20"
+                Placeholder="{x:Static m:Strings.LastName}"
+                 ReturnType="Go"
+                Text="{Binding LastName}"
+                TextColor="White" />
+            </Border>
+            <Border
+            Padding="5"
+            StrokeShape="RoundRectangle 8"
+                StrokeThickness="2">
+                <Entry
+                 Margin="5"
+                ClearButtonVisibility="WhileEditing"
+                FlowDirection="LeftToRight"
+                 FontSize="20"
+                Placeholder="{x:Static m:Strings.City}"
+                 ReturnType="Go"
+                Text="{Binding City}"
+                TextColor="White" />
+            </Border>
+            <Button
+            Text="{x:Static m:Strings.SaveProfileCommand}"
+            Command="{Binding AddDataCommand}"
+            FontSize="16"
+            WidthRequest="250"
+            HeightRequest="55"
+            CornerRadius="15"
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            Margin="5"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

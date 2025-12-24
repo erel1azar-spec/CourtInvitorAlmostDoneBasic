@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CourtInvitor.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:CourtInvitor.Models"
+    xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+    x:DataType="vm:MainPageVM">
+
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="background.png"
+           Aspect="AspectFill"
+           Grid.RowSpan="1"
+           Grid.ColumnSpan="1"/>
+
+        <!-- Main Content -->
+        <ScrollView>
+            <VerticalStackLayout
+            Padding="30,30"
+            Spacing="25">
+                <Label
+                Text="{Binding WelcomeUserName}"
+                HorizontalOptions="Center"
+                TextColor="White"
+                FontSize="40"
+                HorizontalTextAlignment="Center"/>
+                <Button
+                IsVisible="{Binding LoginVisibility}"
+                Text="{x:Static m:Strings.LoginOrRegisterButton}"
+                BorderColor="Blue"
+                BorderWidth="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Command="{Binding NavToLoginCommand}"/>
+                <Button
+                IsVisible="{Binding SignOutVisibility}"
+                Text="{x:Static m:Strings.SignOutButton}"
+                BorderColor="Blue"
+                BorderWidth="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Command="{Binding SignOutCommand}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CourtInvitor.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CourtInvitor"
+    xmlns:v="clr-namespace:CourtInvitor.Views"
+    Title="CourtInvitor"
+    Shell.FlyoutBehavior="Disabled">
+
+    <ShellContent ContentTemplate="{DataTemplate v:MainPage}" Route="MainPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:LoginPage}" Route="LoginPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:RegisterPage}" Route="RegisterPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:NavigationPageClient}" Route="NavigationPageClient" />
+    <ShellContent ContentTemplate="{DataTemplate v:MakeReservationClientPage}" Route="MakeReservationClientPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientPlayerSearchPage}" Route="ClientPlayerSearchPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ProfileClientPage}" Route="ProfileClientPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ReceivedSuggastionsClientPage}" Route="ReceivedSuggastionsClientPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientReservationsPage}" Route="ClientReservationsPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:NavigataionPageAdmin}" Route="NavigationPageAdmin" />
+    <ShellContent ContentTemplate="{DataTemplate v:CreateClubPage}" Route="CreateClubPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClubs}" Route="AdminExistsClubs" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsDates}" Route="AdminExistsDates" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsCourts}" Route="AdminExistsCourts" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClients}" Route="AdminExistsClients" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingClubList}" Route="ClientExistingClubList" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingDatesList}" Route="ClientExistingDatesList" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingCourtsList}" Route="ClientExistingCourtsList" />
+
+</Shell>

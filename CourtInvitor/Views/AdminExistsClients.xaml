@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtInvitor.Views.AdminExistsClients"
+             xmlns:m="clr-namespace:CourtInvitor.Models"
+             xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+             x:DataType="vm:AdminExistsClientsVM">
+    <Grid>
+        <!--  Background Image  -->
+        <Image
+            Grid.RowSpan="1"
+            Grid.ColumnSpan="1"
+            Aspect="AspectFill"
+            Source="background.png" />
+        <!--  Back Arrow Button  -->
+        <Button
+            Margin="5"
+            BackgroundColor="Transparent"
+            Command="{Binding NavBackHomeCommand}"
+            FontFamily="MaterialSymbols"
+            FontSize="28"
+            HorizontalOptions="End"
+            Text="{StaticResource IconArrow_left_alt}"
+            TextColor="White"
+            VerticalOptions="Start"
+            ZIndex="1" />
+        <CollectionView ItemsSource="{Binding Hours}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:CourtHourModel">
+                    <Label
+                Margin="10"
+                FontSize="18"
+                Text="{Binding DisplayText}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

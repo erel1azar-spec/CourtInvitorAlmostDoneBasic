@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtInvitor.Views.ClientExistingClubList"
+    xmlns:m="clr-namespace:CourtInvitor.Models"
+    xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+    x:DataType="vm:ClientExistingClubListVM">
+    <Grid>
+        <!--  Background Image  -->
+        <Image
+    Grid.RowSpan="1"
+    Grid.ColumnSpan="1"
+    Aspect="AspectFill"
+    Source="background.png" />
+        <!--  Back Arrow Button  -->
+        <Button
+    FontFamily="MaterialSymbols"
+    Text="{StaticResource IconArrow_left_alt}"
+    FontSize="28"
+    TextColor="White"
+    HorizontalOptions="End"
+    VerticalOptions="Start"
+    Margin="5"
+    ZIndex="1"
+    BackgroundColor="Transparent"
+    Command="{Binding NavBackHomeCommand}"/>
+        <CollectionView ItemsSource="{Binding ClientExistingClubListModel}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:ClientExistingClubListModel">
+                    <Button
+                        Margin="10"
+                        Command="{Binding ClickCommand}"
+                        FontSize="18"
+                        Text="{Binding ClubText}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

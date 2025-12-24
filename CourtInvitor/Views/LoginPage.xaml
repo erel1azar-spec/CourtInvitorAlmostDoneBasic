@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CourtInvitor.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:CourtInvitor.Models"
+    xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+    x:DataType="vm:LoginPageVM"
+    IsBusy="{Binding IsBusy}">
+    <Grid>
+        <!--  Background Image  -->
+        <Image
+            Grid.RowSpan="1"
+            Grid.ColumnSpan="1"
+            Aspect="AspectFill"
+            Source="background.png" />
+        <!--  Back Arrow Button  -->
+        <Button
+            FontFamily="MaterialSymbols"
+            Text="{StaticResource IconArrow_left_alt}"
+            FontSize="28"
+            TextColor="White"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Margin="5"
+            ZIndex="1"
+            BackgroundColor="Transparent"
+            Command="{Binding NavBackHomeCommand}"/>
+
+        <!--  Main Content  -->
+        <ScrollView>
+            <VerticalStackLayout Padding="30,0" Spacing="25">
+                <Label
+                    Margin="0,70"
+                    CharacterSpacing="1.5"
+                    FontAttributes="Bold"
+                    FontSize="40"
+                    HorizontalOptions="Center"
+                    Text="{x:Static m:Strings.LoginTitle}"
+                    TextColor="White" />
+
+                <Border
+                    Padding="5"
+                    StrokeShape="RoundRectangle 8"
+                    StrokeThickness="2">
+                    <Entry
+                        Margin="5"
+                        ClearButtonVisibility="WhileEditing"
+                        FlowDirection="LeftToRight"
+                        FontSize="20"
+                        Placeholder="{x:Static m:Strings.Email}"
+                        ReturnType="Go"
+                        Text="{Binding Email}"
+                        TextColor="White" />
+                </Border>
+
+                <Border
+                    Padding="5"
+                    StrokeShape="RoundRectangle 8"
+                    StrokeThickness="2">
+                    <Grid ColumnDefinitions="*,Auto" FlowDirection="LeftToRight">
+                        <Entry
+                            Margin="5"
+                            ClearButtonVisibility="WhileEditing"
+                            FlowDirection="LeftToRight"
+                            FontSize="20"
+                            IsPassword="{Binding IsPassword}"
+                            Placeholder="{x:Static m:Strings.Password}"
+                            ReturnType="Done"
+                            Text="{Binding Password}"
+                            TextColor="White" />
+                        <Button
+                            Grid.Column="1"
+                            BackgroundColor="Transparent"
+                            Command="{Binding ToggleIsPasswordCommand}"
+                            FontFamily="MaterialSymbols"
+                            FontSize="23"
+                            HorizontalOptions="End"
+                            Text="{Binding IsPassword, Converter={StaticResource passwordIconConvert}}"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Button
+                    Command="{Binding LoginCommand}"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Text="{x:Static m:Strings.SubmitLoginButtonText}" />
+
+                <Label
+                    Margin="0,14,0,0"
+                    FontSize="17"
+                    HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{x:Static m:Strings.DontOwnAccountText}" TextColor="White" />
+                            <Span
+                                Text="{x:Static m:Strings.Register}"
+                                TextColor="LightBlue"
+                                TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavToRegisterCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label
+                    Margin="0,14,0,0"
+                    FontSize="17"
+                    HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{x:Static m:Strings.DontOwnAccountText}" TextColor="White" />
+                            <Span
+                                Text="{x:Static m:Strings.SignInWithGoogle}"
+                                TextColor="LightBlue"
+                                TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavToGoogleSignInCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

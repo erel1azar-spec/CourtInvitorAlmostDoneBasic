@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtInvitor.Views.ReceivedSuggastionsClientPage"
+             xmlns:m="clr-namespace:CourtInvitor.Models"
+             xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+             x:DataType="vm:ReceivedSuggastionsClientPageVM"
+             Title="ReceivedSuggastionsClientPage">
+    <Grid>
+        <!--  Background Image  -->
+        <Image
+        Grid.RowSpan="1"
+        Grid.ColumnSpan="1"
+        Aspect="AspectFill"
+        Source="background.png" />
+        <!--  Back Arrow Button  -->
+        <Button
+        FontFamily="MaterialSymbols"
+        Text="{StaticResource IconArrow_left_alt}"
+        FontSize="28"
+        TextColor="White"
+        HorizontalOptions="End"
+        VerticalOptions="Start"
+        Margin="5"
+        ZIndex="1"
+        BackgroundColor="Transparent"
+        Command="{Binding NavBackHomeCommand}"/>
+    </Grid>
+</ContentPage>
