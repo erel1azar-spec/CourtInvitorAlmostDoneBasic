@@ -1,43 +1,79 @@
-﻿using CourtInvitor.Views;
+﻿using CourtInvitor.Models;
+using CourtInvitor.Views;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CourtInvitor.Models;
 
 namespace CourtInvitor.ModelsLogic
 {
-    internal class AdminExistsClubs
+    internal class AdminExistsClubs:AdminExistsClubsModel
     {
-        private readonly FbData fbData = new();
+        private readonly FbData fbData;
+        private string name;
+        private string userEmail;
 
-        public async Task<string> GetClubNameForCurrentUserAsync()
+        public override string Name => name;
+        public override string UserEmail => userEmail;
+
+        public AdminExistsClubs()
         {
-
-            string userEmail =
-                Preferences.Default.Get(Keys.EmailKey, string.Empty);
-
-
-            if (userEmail == string.Empty)
-                return string.Empty;
-
-            var snapshot = await fbData.fs
-                .Collection("clubs")
+            fbData = new FbData();
+            name = string.Empty;
+            userEmail = string.Empty;
+        }
+        public async Task LoadByUserEmailAsync(string email)
+        {
+            IQuerySnapshot snapshot =
+                await fbData.fs
+                .Collection(ConstData.Clubs)
+                .WhereEqualsTo(
+                    Keys.UserEmail,
+                    email)
                 .GetAsync();
 
-            foreach (var document in snapshot.Documents)
-            {
-                string? clubUserEmail = document.Data["userEmail"].ToString();
+            IDocumentSnapshot document =
+                snapshot.Documents.FirstOrDefault();
 
-                if (clubUserEmail == userEmail)
-                {
-                    return document.Data["name"].ToString();
-                }
-            }
+            if (document == null)
+                return;
 
-            return string.Empty;
+            name = document.Get<string>(Keys.Name);
+            userEmail = document.Get<string>(Keys.UserEmail);
         }
+
+
+
+        //private readonly FbData fbData = new();
+
+        //public async Task<string> GetClubNameForCurrentUserAsync()
+        //{
+
+        //    string userEmail =
+        //        Preferences.Default.Get(Keys.EmailKey, string.Empty);
+
+
+        //    if (userEmail == string.Empty)
+        //        return string.Empty;
+
+        //    var snapshot = await fbData.fs
+        //        .Collection("clubs")
+        //        .GetAsync();
+
+        //    foreach (var document in snapshot.Documents)
+        //    {
+        //        string? clubUserEmail = document.Data["userEmail"].ToString();
+
+        //        if (clubUserEmail == userEmail)
+        //        {
+        //            return document.Data["name"].ToString();
+        //        }
+        //    }
+
+        //    return string.Empty;
+        //}
 
     }
 }

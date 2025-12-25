@@ -25,7 +25,7 @@
         BackgroundColor="Transparent"
         Command="{Binding NavBackHomeCommand}"/>
         <Button
-                Text="{Binding Name}"
+                Text="{Binding ClubName}"
                 BorderColor="Blue"
                 BorderWidth="2"
                 HorizontalOptions="Center"

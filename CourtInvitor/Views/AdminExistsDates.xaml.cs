@@ -6,6 +6,6 @@ public partial class AdminExistsDates : ContentPage
 	public AdminExistsDates()
 	{
 		InitializeComponent();
-		BindingContext=new AdminExistsDatesVM();
+		//BindingContext=new AdminExistsDatesVM();
     }
 }

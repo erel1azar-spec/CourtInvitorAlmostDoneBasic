@@ -2,7 +2,9 @@
 {
     internal class Keys
     {
-        
+        public const string Name = "name";
+        public const string UserEmail = "userEmail";
+
         public const string FirstNameKey = "firstName";
         public const string SelectedCourtClient = "SelectedCourtClient";
         public const string SelectedClientClub = "SelectedClientClub";
