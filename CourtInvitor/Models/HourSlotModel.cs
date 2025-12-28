@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CourtInvitor.Models
 {
-    public class LocationResult
+    public abstract class HourSlotModel
     {
-        public string DisplayName { get; set; } = string.Empty;
-
+        public abstract int Index { get; }
+        public abstract string TimeText { get; }
     }
 }

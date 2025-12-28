@@ -11,7 +11,6 @@ namespace CourtInvitor.ViewModels
     {
         public ICommand NavToReservationsMadeCommand => new Command(NavToReservationsMade);
         public ICommand NavToCreateCourtCommand => new Command(NavToCreateCourt);
-        public ICommand NavToProfileCommand => new Command(NavToProfile);
         public ICommand NavBackHomeCommand => new Command(NavHome);
 
 
@@ -23,10 +22,6 @@ namespace CourtInvitor.ViewModels
         private async void NavToCreateCourt()
         {
             await Shell.Current.GoToAsync("///CreateClubPage?refresh=true");
-        }
-        private async void NavToProfile()
-        {
-            await Shell.Current.GoToAsync("///ProfileClientPage?refresh=true");
         }
         private async void NavHome()
         {

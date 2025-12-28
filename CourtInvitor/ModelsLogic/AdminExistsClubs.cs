@@ -26,7 +26,7 @@ namespace CourtInvitor.ModelsLogic
         }
         public async Task LoadByUserEmailAsync(string email)
         {
-            IQuerySnapshot snapshot =
+            IQuerySnapshot ?snapshot =
                 await fbData.fs
                 .Collection(ConstData.Clubs)
                 .WhereEqualsTo(
@@ -34,14 +34,20 @@ namespace CourtInvitor.ModelsLogic
                     email)
                 .GetAsync();
 
-            IDocumentSnapshot document =
+            IDocumentSnapshot ?document =
                 snapshot.Documents.FirstOrDefault();
 
-            if (document == null)
-                return;
+            if (document != null)
+            {
+                string? tempName = document.Get<string>(Keys.Name);
+                string? tempEmail = document.Get<string>(Keys.UserEmail);
 
-            name = document.Get<string>(Keys.Name);
-            userEmail = document.Get<string>(Keys.UserEmail);
+                if (tempName != null)
+                    name = tempName;
+
+                if (tempEmail != null)
+                    userEmail = tempEmail;
+            }
         }
 
 

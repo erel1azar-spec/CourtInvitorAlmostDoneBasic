@@ -9,7 +9,7 @@ namespace CourtInvitor.ViewModels
         public ICommand NavToLoginCommand { get => new Command(NavToLogin); }
         public ICommand SignOutCommand { get => new Command(SignOut); }
         private readonly App? app;
-        private User user;
+        private readonly User user;
         private bool isLogged;
         private bool IsLogged
         {

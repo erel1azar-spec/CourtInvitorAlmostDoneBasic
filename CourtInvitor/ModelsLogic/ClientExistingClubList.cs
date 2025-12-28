@@ -1,4 +1,5 @@
 ﻿using CourtInvitor.Models;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,43 +8,91 @@ using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
-    internal class ClientExistingClubList
+    internal class ClientExistingClubList:ClientExistingClubListModel
     {
-        private readonly FbData fbData = new();
-        private readonly AdminExistsClubs adminExistsClubs = new();
+        private readonly FbData fbData;
+        private string clubText;
 
-        // פונקציה שמחזירה את כל התאריכים של המועדון
-        public async Task<List<ClientExistingClubListModel>> LoadClubNamesAsync()
+        public override string ClubText => clubText;
+
+        public ClientExistingClubList()
         {
+            fbData = new FbData();
+            clubText = string.Empty;
+        }
+        public static async Task<List<ClientExistingClubListModel>> LoadClientClubAsync()
+        {
+            List<ClientExistingClubListModel> clubs = new();
 
-            // שליפת כל המסמכים של המועדון
-            var snapshot = await fbData.fs
-    .Collection("clubs")
-    .GetAsync();
 
-            var dateModels = new List<ClientExistingClubListModel>();
+            FbData data = new FbData();
 
-            foreach (var doc in snapshot.Documents)
+            IQuerySnapshot snapshot =
+                await data.fs
+                .Collection(ConstData.Clubs)
+                .GetAsync();
+
+            foreach (IDocumentSnapshot document in snapshot.Documents)
             {
-                if (doc.Data.ContainsKey("name"))
+                if (document.Data != null && document.Data.ContainsKey(Keys.ClubName))
                 {
-                    string name = doc.Data["name"]?.ToString() ?? "";
 
-                    // נוודא שהתאריך לא נוסף כבר
+                    string club = document.Get<string>(Keys.ClubName) ?? string.Empty;
 
-
-                    if (string.IsNullOrEmpty(name)==false)
+                    if (club != string.Empty)
                     {
-                        var model = new ClientExistingClubListModel();
-                        model.ClubText = name;
-                        dateModels.Add(model);
+
+                        bool exists = clubs.Any(d => d.ClubText == club);
+
+                        if (!exists)
+                        {
+
+                            ClientExistingClubList model = new ClientExistingClubList();
+
+                            model.clubText = club;
+                            clubs.Add(model);
+                        }
                     }
                 }
             }
 
-            return dateModels;
-
-
+            return clubs;
         }
+        //    private readonly FbData fbData = new();
+        //    private readonly AdminExistsClubs adminExistsClubs = new();
+
+        //    // פונקציה שמחזירה את כל התאריכים של המועדון
+        //    public async Task<List<ClientExistingClubListModel>> LoadClubNamesAsync()
+        //    {
+
+        //        // שליפת כל המסמכים של המועדון
+        //        var snapshot = await fbData.fs
+        //.Collection("clubs")
+        //.GetAsync();
+
+        //        var dateModels = new List<ClientExistingClubListModel>();
+
+        //        foreach (var doc in snapshot.Documents)
+        //        {
+        //            if (doc.Data.ContainsKey("name"))
+        //            {
+        //                string name = doc.Data["name"]?.ToString() ?? "";
+
+        //                // נוודא שהתאריך לא נוסף כבר
+
+
+        //                if (string.IsNullOrEmpty(name)==false)
+        //                {
+        //                    var model = new ClientExistingClubListModel();
+        //                    model.ClubText = name;
+        //                    dateModels.Add(model);
+        //                }
+        //            }
+        //        }
+
+        //        return dateModels;
+
+
     }
+    
 }

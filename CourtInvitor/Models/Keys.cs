@@ -4,7 +4,16 @@
     {
         public const string Name = "name";
         public const string UserEmail = "userEmail";
-
+        public const string Date = "date";
+        public const string CourtNumber = "courtNumber";
+        public const string ClubName = "name";
+        public const string ClientSelectedDate = "clientSelectedDate";
+        public const string ClientSelectedClub = "clientSelectedClub";
+        public const string ClientSelectedCourt = "clientSelectedCourt";
+        public const string ClientSelectedHour = "clientSelectedHour";
+        public const string AdminSelectedClub = "adminSelectedClub";
+        public const string AdminSelectedDate = "adminSelectedDate";
+        public const string AdminSelectedCourt = "adminSelectedCourt";
         public const string FirstNameKey = "firstName";
         public const string SelectedCourtClient = "SelectedCourtClient";
         public const string SelectedClientClub = "SelectedClientClub";
@@ -13,7 +22,6 @@
         public const string SelectedCourtNumber = "SelectedCourtNumber";
         public const string UserIdKey = "UserId";
         public const string EmailRegisterd  = "firstName";
-        public const string ClubName = "ClubName";
         public const string ProfilesCollection = "ProfileDetails";
         public const string LastNameKey = "lastName";
         public const string CityKey = "city";

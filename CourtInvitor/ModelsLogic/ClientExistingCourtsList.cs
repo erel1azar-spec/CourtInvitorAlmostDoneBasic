@@ -1,4 +1,5 @@
 ﻿using CourtInvitor.Models;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +8,54 @@ using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
-    internal class ClientExistingCourtsList
+    internal class ClientExistingCourtsList:ClientExistingCourtsListModel
     {
-        private readonly FbData fbData = new();
+        private int courtNumber;
+        private string courtText = string.Empty;
 
-        // פונקציה שמחזירה את כל התאריכים של המועדון
+        public override int CourtNumber => courtNumber;
 
+        public override string CourtText => courtText;
 
-        public async Task<int> GetClientClubNumCourtsForCurrentUserAsync()
+        public static async Task<List<ClientExistingCourtsListModel>> LoadCourtsAsync(string clubName)
         {
-            string clubName = Preferences.Get(Keys.SelectedClientClub, string.Empty);
+            List<ClientExistingCourtsListModel> courts = new();
 
-            var snapshot = await fbData.fs.Collection("clubs").GetAsync();
+            if (string.IsNullOrEmpty(clubName))
+                return courts;
 
-            foreach (var doc in snapshot.Documents)
+            FbData data = new();
+            IQuerySnapshot snapshot =
+                await data.fs
+                .Collection(clubName)
+                .GetAsync();
+
+            foreach (IDocumentSnapshot document in snapshot.Documents)
             {
-                string clubUserName = doc.Data["name"]?.ToString() ?? "";
-                if (clubUserName == clubName)
+                if (document.Data!=null&&document.Data.ContainsKey(Keys.CourtNumber))
                 {
-                    int courtsCount = 0;
-                    int.TryParse(doc.Data["courtsCount"]?.ToString() ?? "0", out courtsCount);
-                    return courtsCount;
+                    int number = document.Get<int>(Keys.CourtNumber);
+                    if (number > 0)
+                    {
+
+                        bool exists = courts.Any(c => c.CourtNumber == number);
+                        if (!exists)
+                        {
+
+                            ClientExistingCourtsList model = new()
+                            {
+                                courtNumber = number,
+                                courtText = Strings.Court + number // "Court 1", "Court 2"...
+                            };
+
+
+                            courts.Add(model);
+                        }
+                    }
                 }
             }
 
-            return 0;
+            return courts;
         }
     }
 }

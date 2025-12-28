@@ -12,45 +12,39 @@ namespace CourtInvitor.ViewModels
 {
     internal class ClientExistingCourtsListVM: ObservableObject
     {
-        public ObservableCollection<ClientExistingCourtsListModel> ClientExistingCourtsListModel { get; set; } = new();
-        public ICommand NavBackHomeCommand => new Command(NavHome);
+        private readonly ObservableCollection<ClientExistingCourtsListModel> courts;
+        public ObservableCollection<ClientExistingCourtsListModel> Courts => courts;
 
-
+        public ICommand CourtSelectedCommand { get; }
+        public ICommand NavBackHomeCommand { get; }
 
         public ClientExistingCourtsListVM()
         {
-            LoadCourts();
+            courts = new();
+            CourtSelectedCommand = new Command<ClientExistingCourtsListModel>(OnCourtSelected);
+            NavBackHomeCommand = new Command(NavHome);
+            Load();
         }
 
-        private async void LoadCourts()
+        private async void Load()
         {
-            var logic = new ClientExistingCourtsList();
-            int courtsCount = await logic.GetClientClubNumCourtsForCurrentUserAsync();
+            string clubName = Preferences.Get(Keys.ClientSelectedClub, string.Empty);
+            var result = await ClientExistingCourtsList.LoadCourtsAsync(clubName);
 
-            ClientExistingCourtsListModel.Clear();
-
-            for (int i = 1; i <= courtsCount; i++)
-            {
-                var model = new ClientExistingCourtsListModel
-                {
-                    DateText = $"Court {i}", // כאן הטקסט של הכפתור
-                    ClickCommand = new Command(() => OnCourtClicked(i))
-                };
-                ClientExistingCourtsListModel.Add(model);
-            }
+            courts.Clear();
+            foreach (ClientExistingCourtsListModel model in result)
+                courts.Add(model);
         }
 
-        private async void OnCourtClicked(int courtNumber)
+        private void OnCourtSelected(ClientExistingCourtsListModel selectedCourt)
         {
-            // שמירת המגרש שנבחר ב‑Preferences
-            Preferences.Set(Keys.SelectedCourtNumber, courtNumber);
-
-            // לדוגמה, הפניה לעמוד אחר
-            await Shell.Current.GoToAsync("///AdminExistsClients");
+            Preferences.Set(Keys.ClientSelectedCourt, selectedCourt.CourtNumber);
+            Shell.Current.GoToAsync("///ClientExistingHoursPage?refresh=true");
         }
+
         private async void NavHome()
         {
-            await Shell.Current.GoToAsync("///AdminExistsDates");
+            await Shell.Current.GoToAsync("///ClientExistingDatesList?refresh=true");
         }
     }
 }

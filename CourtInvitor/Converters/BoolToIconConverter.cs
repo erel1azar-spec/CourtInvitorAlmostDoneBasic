@@ -1,7 +1,7 @@
 ﻿using CourtInvitor.Models;
 using System.Globalization;
 
-namespace CourtInvitor.Converts
+namespace CourtInvitor.Converters
 {
     internal class BoolToIconConverter : IValueConverter
     {

@@ -15,15 +15,7 @@ namespace CourtInvitor.ViewModels
 
         public ICommand NavToDateCommand { get; }
         public ICommand NavBackHomeCommand { get; }
-
-        /// <summary>
-        /// שם המועדון
-        /// </summary>
         public string ClubName => adminExistsClubs.Name;
-
-        /// <summary>
-        /// בנאי
-        /// </summary>
         public AdminExistsClubsVM()
         {
             adminExistsClubs = new AdminExistsClubs();
@@ -31,10 +23,6 @@ namespace CourtInvitor.ViewModels
             NavBackHomeCommand = new Command(NavHome);
             Load();
         }
-
-        /// <summary>
-        /// טעינת נתונים
-        /// </summary>
         private async void Load()
         {
             string email =
@@ -44,6 +32,7 @@ namespace CourtInvitor.ViewModels
             {
                 await adminExistsClubs.LoadByUserEmailAsync(email);
                 OnPropertyChanged(nameof(ClubName));
+                Preferences.Set(Keys.AdminSelectedClub,ClubName);
             }
         }
 

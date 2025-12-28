@@ -34,18 +34,6 @@
         VerticalOptions="Center"
         HorizontalOptions="Center">
 
-            <!-- כפתור 1 -->
-            <Button
-            Text="{x:Static m:Strings.AdminProfile}"
-            Command="{Binding NavToProfileCommand}"
-            FontSize="16"
-            WidthRequest="250"
-            HeightRequest="55"
-            CornerRadius="15"
-            BackgroundColor="#2563EB"
-            TextColor="White"
-            Margin="5"/>
-
             <!-- כפתור 2 -->
             <Button
             Text="{x:Static m:Strings.AdminCreateCourt}"

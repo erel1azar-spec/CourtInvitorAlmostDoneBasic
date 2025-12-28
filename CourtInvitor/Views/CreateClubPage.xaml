@@ -4,8 +4,7 @@
              x:Class="CourtInvitor.Views.CreateClubPage"
              xmlns:m="clr-namespace:CourtInvitor.Models"
     xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
-    x:DataType="vm:CreateClubPageVM"
-    IsBusy="{Binding IsBusy}">
+    x:DataType="vm:CreateClubPageVM">
     <Grid>
         <!--  Background Image  -->
         <Image
@@ -25,24 +24,27 @@
          ZIndex="1"
          BackgroundColor="Transparent"
          Command="{Binding NavBackHomeCommand}"/>
-        <VerticalStackLayout Padding="20" Spacing="12">
+        <ScrollView>
+            <StackLayout Padding="20">
+                <Label Text="Club Name" Style="{StaticResource LabelStyle}"/>
+                <Entry Text="{Binding ClubName}" Style="{StaticResource EntryStyle}"/>
 
-            <Label Text="Create Club" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="Location" Style="{StaticResource LabelStyle}"/>
+                <Entry Text="{Binding Location}" Style="{StaticResource EntryStyle}"/>
 
-            <Entry Placeholder="Club Name" Text="{Binding ClubName}" />
-            <Entry Placeholder="Location" Text="{Binding Location}" />
-            <Entry Placeholder="Phone" Keyboard="Telephone" Text="{Binding Phone}" />
-            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" />
+                <Label Text="Phone" Style="{StaticResource LabelStyle}"/>
+                <Entry Text="{Binding Phone}" Style="{StaticResource EntryStyle}"/>
 
-            <Label Text="Number of courts:" />
-            <Picker Title="Select number of courts" 
-                ItemsSource="{Binding CourtsNumbers}" 
-                SelectedItem="{Binding CourtsCount}" />
+                <Label Text="Email" Style="{StaticResource LabelStyle}"/>
+                <Entry Text="{Binding Email}" Style="{StaticResource EntryStyle}"/>
 
-            <Button Text="Create" Command="{Binding SaveCommand}" />
+                <Label Text="Courts Count" Style="{StaticResource LabelStyle}"/>
+                <Picker ItemsSource="{Binding CourtsNumbers}" SelectedItem="{Binding CourtsCount}" />
 
-            <Label Text="{Binding StatusMessage}" HorizontalOptions="Center" TextColor="Red"/>
+                <Button Text="Save Club" Command="{Binding SaveCommand}" Style="{StaticResource ButtonStyle}"/>
 
-        </VerticalStackLayout>
+                <Label Text="{Binding StatusMessage}" Style="{StaticResource LabelStyle}" TextColor="Red"/>
+            </StackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>

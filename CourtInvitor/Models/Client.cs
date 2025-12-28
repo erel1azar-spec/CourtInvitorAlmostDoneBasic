@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CourtInvitor.Models
 {
-    internal class Client
+    public class Client
     {
         public string Name { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;

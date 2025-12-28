@@ -12,38 +12,55 @@ namespace CourtInvitor.ViewModels
 {
     internal class ClientExistingDatesListVM:ObservableObject
     {
-        public ObservableCollection<ClientExistingDatesListModel> ClientExistingDatesListModel { get; set; } = new();
-        public ICommand NavBackHomeCommand => new Command(NavHome);
+        public ICommand DateSelectedCommand { get; }
 
+        private readonly ObservableCollection<ClientExistingDatesListModel>
+           dates;
+
+        public ObservableCollection<ClientExistingDatesListModel>
+            DatesClient => dates;
+
+        public ICommand NavBackHomeCommand { get; }
 
         public ClientExistingDatesListVM()
         {
-            LoadDates();
+            dates =
+                new ObservableCollection<ClientExistingDatesListModel>();
+
+            NavBackHomeCommand =
+                new Command(NavHome);
+
+            DateSelectedCommand =
+                new Command<string>(OnDateSelected);
+
+            Load();
         }
 
-        private async void LoadDates()
+        private async void Load()
         {
-            var logic = new ClientExistingDatesList();
-            var dates = await logic.LoadClieDatesAsync();
 
-            ClientExistingDatesListModel.Clear();
 
-            foreach (var date in dates)
-            {
-                // בכל מודל אנו מוסיפים את ה‑Command שלו
-                date.ClickCommand = new Command(() => OnDateClicked(date.DateText));
-                ClientExistingDatesListModel.Add(date);
-            }
+            string clubName = Preferences.Get(Keys.ClientSelectedClub, string.Empty);
+;
+
+            List<ClientExistingDatesListModel> result = await ClientExistingDatesList.LoadClientDatesAsync(clubName);
+
+            dates.Clear();
+            foreach (ClientExistingDatesListModel model in result)
+                dates.Add(model);
+
         }
-
-        private async void OnDateClicked(string selectedDate)
+        private void OnDateSelected(string selectedDate)
         {
-            Preferences.Set(Keys.SelectedDate, selectedDate);
-            // כל כפתור מפנה לאותו עמוד
-            await Shell.Current.GoToAsync("///ClientExistingCourtsList?refresh=true");
+            Preferences.Set(Keys.ClientSelectedDate, selectedDate);
+
+            Shell.Current.GoToAsync("///ClientExistingCourtsList?refresh=true");
+
         }
+
         private async void NavHome()
         {
+            Preferences.Clear(Keys.ClientSelectedClub);
             await Shell.Current.GoToAsync("///ClientExistingClubList?refresh=true");
         }
     }

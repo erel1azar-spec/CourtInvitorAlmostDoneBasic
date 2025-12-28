@@ -7,15 +7,14 @@ using System.Windows.Input;
 
 namespace CourtInvitor.Models
 {
-    public class AdminExistsDatesModel
+    public abstract class AdminExistsDatesModel
     {
         //public abstract string Name { get;set; }
         //public abstract string[] arr { get; set; }
         //public abstract int temp { get; set; }
 
 
-        public string DateText { get; set; } = string.Empty;
-        public ICommand ClickCommand { get; set; }
+        public abstract string DateText { get;}
 
 
     }

@@ -8,8 +8,8 @@ namespace CourtInvitor.Models
 {
     internal class CourtDay
     {
-        public string date { get; set; } = string.Empty;
-        public int courtNumber { get; set; }
-        public List<Client> clients { get; set; } = new();
+        public string Date { get; set; } = string.Empty;
+        public int CourtNumber { get; set; }
+        public List<Client> Clients { get; set; } = new();
     }
 }

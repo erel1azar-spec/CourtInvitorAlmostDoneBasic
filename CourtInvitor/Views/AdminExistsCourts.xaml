@@ -25,14 +25,17 @@
         ZIndex="1"
         BackgroundColor="Transparent"
         Command="{Binding NavBackHomeCommand}"/>
-        <CollectionView ItemsSource="{Binding AdminExistsCourtsModel}">
+        <CollectionView
+    ItemsSource="{Binding Courts}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="m:AdminExistsCourtsModel">
                     <Button
-                    Margin="10"
-                    Command="{Binding ClickCommand}"
-                    FontSize="18"
-                    Text="{Binding DateText}" />
+                Style="{StaticResource DateButtonStyle}"
+                Margin="10"
+                FontSize="18"
+                Text="{Binding CourtText}" 
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminExistsCourtsVM}}, Path=CourtSelectedCommand}"
+                        CommandParameter="{Binding CourtText}"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -1,4 +1,5 @@
 ﻿using CourtInvitor.Models;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,52 +8,58 @@ using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
-    internal class ClientExistingDatesList
+    internal class ClientExistingDatesList:ClientExistingDatesListModel
     {
-        private readonly FbData fbData = new();
-        private readonly ClientExistingClubList clientExistingClubList = new();
+        private readonly FbData fbData;
+        private string dateTextClient;
 
-        // פונקציה שמחזירה את כל התאריכים של המועדון
-        public async Task<List<ClientExistingDatesListModel>> LoadClieDatesAsync()
+        public override string DateTextClient => dateTextClient;
+
+        public ClientExistingDatesList()
         {
-            // קבלת שם המועדון של המשתמש הנוכחי
-            string clubName = Preferences.Get(Keys.SelectedClientClub, string.Empty);
+            fbData = new FbData();
+            dateTextClient = string.Empty;
+        }
+        public static async Task<List<ClientExistingDatesListModel>>  LoadClientDatesAsync(string clubName)
+        {
 
-            if (string.IsNullOrEmpty(clubName))
-                return new List<ClientExistingDatesListModel>();
+            List<ClientExistingDatesListModel> dates = new List<ClientExistingDatesListModel>();
+            if (clubName == string.Empty)
+                return dates;
 
-            // שליפת כל המסמכים של המועדון
-            var snapshot = await fbData.fs.Collection(clubName).GetAsync();
+            FbData data = new FbData();
 
-            var dateModels = new List<ClientExistingDatesListModel>();
+            IQuerySnapshot snapshot =
+                await data.fs
+                .Collection(clubName)
+                .GetAsync();
 
-            foreach (var doc in snapshot.Documents)
+            foreach (IDocumentSnapshot document in snapshot.Documents)
             {
-                if (doc.Data.ContainsKey("date"))
-                {
-                    string date = doc.Data["date"]?.ToString() ?? "";
-
-                    // נוודא שהתאריך לא נוסף כבר
-                    bool exists = false;
-                    foreach (var model in dateModels)
+                    if (document.Data != null && document.Data.ContainsKey(Keys.Date))
                     {
-                        if (model.DateText == date)
+                        string? date = document.Get<string>(Keys.Date);
+
+                        if (date != string.Empty)
                         {
-                            exists = true;
-                            break;
+                            bool exists = dates.Any(d => d.DateTextClient == date);
+
+                            if (!exists)
+                            {
+                                ClientExistingDatesList model = new ClientExistingDatesList();
+
+                                if(date != null)
+                                {
+                                model.dateTextClient = date;
+                                }
+                                dates.Add(model);
+                            }
                         }
                     }
-
-                    if (!exists && !string.IsNullOrEmpty(date))
-                    {
-                        var model = new ClientExistingDatesListModel();
-                        model.DateText = date;
-                        dateModels.Add(model);
-                    }
-                }
+                
             }
-
-            return dateModels;
+            return dates;
         }
     }
+    
 }

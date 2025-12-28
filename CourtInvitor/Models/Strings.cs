@@ -17,6 +17,22 @@
         public const string SaveCourtButton = "Save Court";
         public const string BackButton = "Back";
         public const string EmptyString = "";
+        public const string Court = "courtNumber ";
+
+
+
+        public const string RegisterFailed = "registration faild. try again";
+
+        public const string UserNameTooShort = "User Name must includ more then 3 letters";
+        public const string EmailInvalid = "email adress invalid";
+
+        public const string Ok = "אישור";
+
+        public const string ClubExists = "Club already exists";
+        public const string ClubCreated = "Club created successfully";
+        public const string ClubNameEmpty = "Club name cannot be empty";
+
+
 
 
 

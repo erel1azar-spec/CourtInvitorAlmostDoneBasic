@@ -7,9 +7,8 @@ using System.Windows.Input;
 
 namespace CourtInvitor.Models
 {
-    internal class ClientExistingDatesListModel
+    public abstract class ClientExistingDatesListModel
     {
-        public string DateText { get; set; } = string.Empty;
-        public ICommand ClickCommand { get; set; }
+        public abstract string DateTextClient{ get; }
     }
 }
