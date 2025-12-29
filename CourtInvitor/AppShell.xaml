@@ -9,20 +9,22 @@
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent ContentTemplate="{DataTemplate v:MainPage}" Route="MainPage" />
-    <ShellContent ContentTemplate="{DataTemplate v:LoginPage}" Route="LoginPage" />
-    <ShellContent ContentTemplate="{DataTemplate v:RegisterPage}" Route="RegisterPage" />
-    <ShellContent ContentTemplate="{DataTemplate v:NavigationPageClient}" Route="NavigationPageClient" />
-    <ShellContent ContentTemplate="{DataTemplate v:MakeReservationClientPage}" Route="MakeReservationClientPage" />
-    <ShellContent ContentTemplate="{DataTemplate v:ClientReservationsPage}" Route="ClientReservationsPage" />
-    <ShellContent ContentTemplate="{DataTemplate v:NavigataionPageAdmin}" Route="NavigataionPageAdmin" />
-    <ShellContent ContentTemplate="{DataTemplate v:CreateClubPage}" Route="CreateClubPage" />
-    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClubs}" Route="AdminExistsClubs" />
-    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsDates}" Route="AdminExistsDates" />
-    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsCourts}" Route="AdminExistsCourts" />
-    <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClients}" Route="AdminExistsClients" />
-    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingClubList}" Route="ClientExistingClubList" />
-    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingDatesList}" Route="ClientExistingDatesList" />
-    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingCourtsList}" Route="ClientExistingCourtsList" />
-    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingHoursPage}" Route="ClientExistingHoursPage" />
+        <ShellContent ContentTemplate="{DataTemplate v:LoginPage}" Route="LoginPage" />
+        <ShellContent ContentTemplate="{DataTemplate v:RegisterPage}" Route="RegisterPage" />
+        <ShellContent ContentTemplate="{DataTemplate v:NavigationPageClient}" Route="NavigationPageClient" />
+        <ShellContent ContentTemplate="{DataTemplate v:MakeReservationClientPage}" Route="MakeReservationClientPage" />
+        <ShellContent ContentTemplate="{DataTemplate v:ClientReservationsPage}" Route="ClientReservationsPage" />
+        <ShellContent ContentTemplate="{DataTemplate v:NavigataionPageAdmin}" Route="NavigataionPageAdmin" />
+        <ShellContent ContentTemplate="{DataTemplate v:CreateClubPage}" Route="CreateClubPage" />
+        <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClubs}" Route="AdminExistsClubs" />
+        <ShellContent ContentTemplate="{DataTemplate v:AdminExistsDates}" Route="AdminExistsDates" />
+        <ShellContent ContentTemplate="{DataTemplate v:AdminExistsCourts}" Route="AdminExistsCourts" />
+        <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClients}" Route="AdminExistsClients" />
+        <ShellContent ContentTemplate="{DataTemplate v:ClientExistingClubList}" Route="ClientExistingClubList" />
+        <ShellContent ContentTemplate="{DataTemplate v:ClientExistingDatesList}" Route="ClientExistingDatesList" />
+        <ShellContent ContentTemplate="{DataTemplate v:ClientExistingCourtsList}" Route="ClientExistingCourtsList" />
+        <ShellContent ContentTemplate="{DataTemplate v:ClientExistingHoursPage}" Route="ClientExistingHoursPage" />
+
+
 
 </Shell>

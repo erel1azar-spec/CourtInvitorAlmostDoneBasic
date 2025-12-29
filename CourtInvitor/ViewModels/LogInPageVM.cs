@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Windows.Input;
-using CourtInvitor.Models;
+﻿using CourtInvitor.Models;
 using CourtInvitor.ModelsLogic;
-using System.ComponentModel;
+using System.Windows.Input;
 
 namespace CourtInvitor.ViewModels
 {

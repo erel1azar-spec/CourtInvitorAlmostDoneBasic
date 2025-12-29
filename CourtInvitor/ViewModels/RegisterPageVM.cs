@@ -1,7 +1,6 @@
 ﻿using CourtInvitor.Models;
 using CourtInvitor.ModelsLogic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Windows.Input;
 
 namespace CourtInvitor.ViewModels

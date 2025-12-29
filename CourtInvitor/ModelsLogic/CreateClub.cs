@@ -1,10 +1,5 @@
 ﻿using CourtInvitor.Models;
 using Plugin.CloudFirestore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {

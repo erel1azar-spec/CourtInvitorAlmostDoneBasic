@@ -1,10 +1,5 @@
 ﻿using CourtInvitor.Models;
 using Plugin.CloudFirestore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
@@ -25,10 +20,7 @@ namespace CourtInvitor.ModelsLogic
                 return courts;
 
             FbData data = new();
-            IQuerySnapshot snapshot =
-                await data.fs
-                .Collection(clubName)
-                .GetAsync();
+            IQuerySnapshot snapshot =await data.fs.Collection(clubName).GetAsync();
 
             foreach (IDocumentSnapshot document in snapshot.Documents)
             {

@@ -1,4 +1,6 @@
-﻿using CourtInvitor.ModelsLogic;
+﻿
+using Plugin.CloudFirestore.Attributes;
+
 namespace CourtInvitor.Models
 {
     public abstract class UserModel
@@ -7,7 +9,6 @@ namespace CourtInvitor.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
-
         public abstract Task<bool> Register();
         public abstract void SignOut();
         public abstract Task<bool> Login();

@@ -1,11 +1,6 @@
 ﻿using CourtInvitor.Models;
 using Plugin.CloudFirestore;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
@@ -55,45 +50,32 @@ namespace CourtInvitor.ModelsLogic
 
         private static bool IsHourFree(Client client)
         {
-            return client.UserId == string.Empty &&
-                   client.Name == string.Empty;
+            return client.UserId == string.Empty && client.Name == string.Empty;
         }
 
         private async Task<bool> SaveClientToSpecificHourAsync(int index)
         {
-            string clubName =
-                Preferences.Get(Keys.ClientSelectedClub, string.Empty);
+            string clubName = Preferences.Get(Keys.ClientSelectedClub, string.Empty);
 
-            string date =
-                Preferences.Get(Keys.ClientSelectedDate, string.Empty);
+            string date = Preferences.Get(Keys.ClientSelectedDate, string.Empty);
 
-            int court =
-                Preferences.Get(Keys.ClientSelectedCourt,0);
+            int court = Preferences.Get(Keys.ClientSelectedCourt,0);
 
-            string userName =
-                Preferences.Get(Keys.UserNameKey, string.Empty);
+            string userName = Preferences.Get(Keys.UserNameKey, string.Empty);
 
-            string userId =
-                Preferences.Get(Keys.UserIdKey, string.Empty);
+            string userId = Preferences.Get(Keys.UserIdKey, string.Empty);
 
-            if (clubName == string.Empty ||
-                date == string.Empty ||
-                court == 0)
+            if (clubName == string.Empty || date == string.Empty || court == 0)
                 return false;
 
-            IDocumentReference document =
-                data.fs
-                    .Collection(clubName)
-                    .Document(court + "_" + date);
+            IDocumentReference document = data.fs.Collection(clubName).Document(court + "_" + date);
 
-            IDocumentSnapshot snapshot =
-                await document.GetAsync();
+            IDocumentSnapshot snapshot = await document.GetAsync();
 
             if (!snapshot.Exists || snapshot.Data == null)
                 return false;
 
-            IList<Client>? clientsList =
-                snapshot.Get<IList<Client>>("Lclients") ?? new List<Client>();
+            IList<Client>? clientsList = snapshot.Get<IList<Client>>("Lclients") ?? new List<Client>();
 
             if (clientsList == null || index < 0 ||index >= clientsList.Count)
                 return false;
@@ -107,7 +89,7 @@ namespace CourtInvitor.ModelsLogic
             Dictionary<string, object> update =
                 new Dictionary<string, object>
                 {
-                { "Lclients", clientsList }
+                    { "Lclients", clientsList }
                 };
 
             await document.UpdateAsync(update);

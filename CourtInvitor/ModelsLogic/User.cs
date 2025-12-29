@@ -1,11 +1,6 @@
-﻿using CourtInvitor.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using CourtInvitor.Models;
 using Plugin.CloudFirestore;
-using System.Diagnostics;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static CourtInvitor.Models.ConstData;
-
 
 namespace CourtInvitor.ModelsLogic
 {

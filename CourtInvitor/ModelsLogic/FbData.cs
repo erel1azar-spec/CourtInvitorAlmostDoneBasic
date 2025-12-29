@@ -1,6 +1,5 @@
 ﻿using CourtInvitor.Models;
 using Firebase.Auth;
-using Firebase.Auth.Providers;
 using Plugin.CloudFirestore;
 
 namespace CourtInvitor.ModelsLogic
@@ -8,6 +7,7 @@ namespace CourtInvitor.ModelsLogic
     
         public class FbData : FbDateModel
         {
+
             public override async Task<bool> CreateUserWithEmailAndPWAsync(string email, string password,String UserName, Func<Task, Task<bool>> OnCompleteRegister)
             {
                 Task<Firebase.Auth.UserCredential> firebaseTask = facl.CreateUserWithEmailAndPasswordAsync(email, password);
@@ -88,6 +88,8 @@ namespace CourtInvitor.ModelsLogic
             IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
             OnComplete(qs);
         }
+
+
 
     }
     

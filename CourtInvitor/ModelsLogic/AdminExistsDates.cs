@@ -1,10 +1,5 @@
 ﻿using CourtInvitor.Models;
 using Plugin.CloudFirestore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
@@ -20,26 +15,16 @@ namespace CourtInvitor.ModelsLogic
             fbData = new FbData();
             dateText = string.Empty;
         }
-
-        /// <summary>
-        /// טעינת כל התאריכים של מועדון
-        /// </summary>
-        /// <param name="clubName">שם המועדון</param>
-        /// <returns>רשימת תאריכים</returns>
         public static async Task<List<AdminExistsDatesModel>> LoadDatesAsync(string clubName)
         {
-            List<AdminExistsDatesModel> dates =
-                new List<AdminExistsDatesModel>();
+            List<AdminExistsDatesModel> dates = new List<AdminExistsDatesModel>();
 
             if (clubName == string.Empty)
                 return dates;
 
             FbData data = new FbData();
 
-            IQuerySnapshot snapshot =
-                await data.fs
-                .Collection(clubName)
-                .GetAsync();
+            IQuerySnapshot snapshot =await data.fs.Collection(clubName).GetAsync();
 
             foreach (IDocumentSnapshot document in snapshot.Documents)
             {

@@ -21,10 +21,7 @@ namespace CourtInvitor.ModelsLogic
 
             FbData data = new FbData();
 
-            IQuerySnapshot snapshot =
-                await data.fs
-                .Collection(clubName)
-                .GetAsync();
+            IQuerySnapshot snapshot =await data.fs.Collection(clubName).GetAsync();
 
             foreach (IDocumentSnapshot document in snapshot.Documents)
             {

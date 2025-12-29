@@ -1,11 +1,5 @@
 ﻿using CourtInvitor.Models;
-using CourtInvitor.Views;
 using Plugin.CloudFirestore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtInvitor.ModelsLogic
 {
@@ -27,15 +21,9 @@ namespace CourtInvitor.ModelsLogic
         public async Task LoadByUserEmailAsync(string email)
         {
             IQuerySnapshot ?snapshot =
-                await fbData.fs
-                .Collection(ConstData.Clubs)
-                .WhereEqualsTo(
-                    Keys.UserEmail,
-                    email)
-                .GetAsync();
+                await fbData.fs.Collection(ConstData.Clubs).WhereEqualsTo(Keys.UserEmail,email).GetAsync();
 
-            IDocumentSnapshot ?document =
-                snapshot.Documents.FirstOrDefault();
+            IDocumentSnapshot ?document = snapshot.Documents.FirstOrDefault();
 
             if (document != null)
             {

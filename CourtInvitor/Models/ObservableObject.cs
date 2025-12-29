@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
+
 namespace CourtInvitor.Models;
 partial class ObservableObject : INotifyPropertyChanged
 {

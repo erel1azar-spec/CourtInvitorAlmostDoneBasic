@@ -2,6 +2,7 @@
 {
     internal class Keys
     {
+        public const long FinishedSignal = 1000000;
         public const string Name = "name";
         public const string UserEmail = "userEmail";
         public const string Date = "date";
@@ -48,5 +49,6 @@
         public const string InvalidCredentialsErrorKey = "INVALID_LOGIN_CREDENTIALS";
         public const string UserDisabledErrorKey = "USER_DISABLED";
         public const string ManyAttemptsErrorKey = "TOO_MANY_ATTEMPTS_TRY_LATER";
+        public const int OneHourIntMiliseconds = 3600000;
     }
 }

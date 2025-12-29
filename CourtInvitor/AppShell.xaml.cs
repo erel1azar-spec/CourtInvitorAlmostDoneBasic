@@ -1,4 +1,5 @@
-﻿namespace CourtInvitor
+﻿
+namespace CourtInvitor
 {
     public partial class AppShell : Shell
     {
