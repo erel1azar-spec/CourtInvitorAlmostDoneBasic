@@ -15,15 +15,17 @@ namespace CourtInvitor
         override protected void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
             WeakReferenceMessenger.Default.Register<AppMessage<TimerSettings>>(this, (r, m) =>
             {
                 OnMessageReceived(m.Value);
             });
+
             WeakReferenceMessenger.Default.Register<AppMessage<bool>>(this, (r, m) =>
             {
                 OnMessageReceived(m.Value);
             });
-            base.OnCreate(savedInstanceState);
+
             StartDeleteFbDocService();
         }
         private void OnMessageReceived(bool value)

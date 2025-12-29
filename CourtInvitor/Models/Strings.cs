@@ -2,6 +2,7 @@
 {
     internal class Strings
     {
+        public const string TimeUp = "TimeUp";
         public const string Location = "Location";
         public const string CourtName = "Court Name";
         public const string Sunday = "Sunday";

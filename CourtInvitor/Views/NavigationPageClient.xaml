@@ -59,6 +59,11 @@
             TextColor="White"
             Margin="5"/>
         </VerticalStackLayout>
+        <Label
+    Text="{Binding TimeLeft}"
+    Style="{StaticResource TimerLabelStyle}"
+            TextColor="White"
+    HorizontalOptions="Center"/>
     </Grid>
 
 </ContentPage>

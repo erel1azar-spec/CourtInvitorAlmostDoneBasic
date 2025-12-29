@@ -1,4 +1,5 @@
-﻿using CourtInvitor.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using CourtInvitor.Models;
 using CourtInvitor.ModelsLogic;
 using System.Windows.Input;
 
@@ -68,13 +69,21 @@ namespace CourtInvitor.ViewModels
             user.Email = Email;
             user.Password = Password;
             bool success = await user.Login();
-            if (success)
-            {
-                if (user.Role == Strings.Admin)
+            if (!success)
+                return;
+            Session session = new Session();
+
+            WeakReferenceMessenger.Default.Send(
+                new AppMessage<TimerSettings>(
+                    new TimerSettings(
+                        Keys.SessionTotalTime,
+                        Keys.SessionInterval)));
+
+            if (user.Role == Strings.Admin)
                     await Shell.Current.GoToAsync("///NavigataionPageAdmin");
                 else
                     await Shell.Current.GoToAsync("///NavigationPageClient");
-            }
+            
         }
 
         private async void NavigateBackHome()

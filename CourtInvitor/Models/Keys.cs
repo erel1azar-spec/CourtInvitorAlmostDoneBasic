@@ -2,7 +2,6 @@
 {
     internal class Keys
     {
-        public const long FinishedSignal = 1000000;
         public const string Name = "name";
         public const string UserEmail = "userEmail";
         public const string Date = "date";
@@ -50,5 +49,10 @@
         public const string UserDisabledErrorKey = "USER_DISABLED";
         public const string ManyAttemptsErrorKey = "TOO_MANY_ATTEMPTS_TRY_LATER";
         public const int OneHourIntMiliseconds = 3600000;
+        public const long SessionTotalTime = 300000; // 5 minutes in milliseconds
+
+        public const long SessionInterval = 1000; // 1 second
+
+        public const long FinishedSignal =-1;
     }
 }
