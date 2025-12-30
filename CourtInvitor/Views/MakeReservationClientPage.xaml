@@ -4,26 +4,30 @@
              x:Class="CourtInvitor.Views.MakeReservationClientPage"
              xmlns:m="clr-namespace:CourtInvitor.Models"
              xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
-             x:DataType="vm:MakeReservationClientPageVM"
-             Title="MakeReservationClientPage">
+             x:DataType="vm:MakeReservationClientPageVM">
     <Grid>
-        <!--  Background Image  -->
         <Image
-        Grid.RowSpan="1"
-        Grid.ColumnSpan="1"
-        Aspect="AspectFill"
-        Source="background.png" />
-        <!--  Back Arrow Button  -->
+            Aspect="AspectFill"
+            Source="background.jpeg" />
         <Button
-        FontFamily="MaterialSymbols"
-        Text="{StaticResource IconArrow_left_alt}"
-        FontSize="28"
-        TextColor="White"
-        HorizontalOptions="End"
-        VerticalOptions="Start"
-        Margin="5"
-        ZIndex="1"
-        BackgroundColor="Transparent"
-        Command="{Binding NavBackHomeCommand}"/>
+            Text="{StaticResource IconArrow_left_alt}"
+            Style="{StaticResource BackButtonStyle}"
+            TextColor="White"
+            Command="{Binding NavBackHomeCommand}" />
+        <Border
+            BackgroundColor="#CC1A1A2E"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            Padding="30"
+            Margin="20"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <Label
+                Text="{x:Static m:Strings.MakeReservationText}"
+                TextColor="White"
+                FontSize="24"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+        </Border>
     </Grid>
 </ContentPage>

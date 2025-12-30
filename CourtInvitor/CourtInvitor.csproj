@@ -155,7 +155,7 @@
 	  <MauiXaml Update="Views\MakeReservationClientPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\NavigataionPageAdmin.xaml">
+	  <MauiXaml Update="Views\NavigationPageAdmin.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NavigationPageClient.xaml">

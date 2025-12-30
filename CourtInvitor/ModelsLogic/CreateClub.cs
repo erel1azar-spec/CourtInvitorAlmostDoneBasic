@@ -1,48 +1,77 @@
 ﻿using CourtInvitor.Models;
 using Plugin.CloudFirestore;
-
 namespace CourtInvitor.ModelsLogic
 {
-    internal class CreateClub:CreateClubModel
+    /// <summary>
+    /// Implementation of club creation logic.
+    /// </summary>
+    internal class CreateClub : CreateClubModel
     {
-        private readonly FbData data=new();
+        #region Fields
+        private readonly FbData data = new FbData();
+        private string statusMessage = string.Empty;
+        private bool isSuccess = false;
+        #endregion
+        #region Properties
         public override string ClubName { get; set; } = string.Empty;
         public override string Location { get; set; } = string.Empty;
         public override string Phone { get; set; } = string.Empty;
         public override string Email { get; set; } = string.Empty;
         public override int CourtsCount { get; set; } = 1;
-
-        private string statusMessage = string.Empty;
         public override string StatusMessage => statusMessage;
-
+        public override bool IsSuccess => isSuccess;
+        #endregion
+        #region Public Functions
+        /// <summary>
+        /// Creates a new club with courts for the week.
+        /// </summary>
+        /// <param name="startDate">The start date for court scheduling.</param>
         public override async Task CreateClubAsync(DateTime startDate)
         {
-            if (string.IsNullOrWhiteSpace(ClubName))
+            isSuccess = false;
+            string validationError = ValidateFields();
+            if (validationError != string.Empty)
             {
-                statusMessage = "Club name cannot be empty.";
-                return;
+                statusMessage = validationError;
             }
-
+            else if (await ClubExistsAsync())
+            {
+                statusMessage = Strings.ClubAlreadyExists;
+            }
+            else
+            {
+                SaveClubToFirestore();
+                CreateCourtsForWeek(startDate);
+                statusMessage = Strings.ClubCreatedSuccess;
+                isSuccess = true;
+            }
+        }
+        #endregion
+        #region Private Functions
+        /// <summary>
+        /// Checks if a club with the same name already exists.
+        /// </summary>
+        /// <returns>True if club exists.</returns>
+        private async Task<bool> ClubExistsAsync()
+        {
             bool clubExists = false;
-            TaskCompletionSource<bool> taskCompletion = new();
-            data.GetDocumentsWhereEqualTo("clubs", "name", ClubName,
+            TaskCompletionSource<bool> taskCompletion = new TaskCompletionSource<bool>();
+            data.GetDocumentsWhereEqualTo(ConstData.Clubs, Keys.Name, ClubName,
                 qs =>
                 {
                     foreach (IDocumentSnapshot doc in qs.Documents)
                         clubExists = true;
-
                     taskCompletion.SetResult(true);
                 });
             await taskCompletion.Task;
-
-            if (clubExists)
-            {
-                statusMessage = "Club already exists!";
-                return;
-            }
-
+            return clubExists;
+        }
+        /// <summary>
+        /// Saves the club document to Firestore.
+        /// </summary>
+        private void SaveClubToFirestore()
+        {
             string loggedInEmail = Preferences.Get(Keys.EmailKey, string.Empty);
-
             object clubDoc = new
             {
                 name = ClubName,
@@ -52,183 +81,100 @@ namespace CourtInvitor.ModelsLogic
                 userEmail = loggedInEmail,
                 courtsCount = CourtsCount
             };
-
-            data.SetDocument(clubDoc, "clubs", string.Empty, t => { });
-
-            for (int court = 1; court <= CourtsCount; court++)
-                for (int day = 0; day < 7; day++)
-                    CreateCourtDay(court, startDate.AddDays(day));
-
-            statusMessage = "Club created successfully!";
+            data.SetDocument(clubDoc, ConstData.Clubs, string.Empty, t => { });
         }
-
+        /// <summary>
+        /// Creates court days for the entire week.
+        /// </summary>
+        /// <param name="startDate">The start date.</param>
+        private void CreateCourtsForWeek(DateTime startDate)
+        {
+            for (int court = 1; court <= CourtsCount; court++)
+                for (int day = 0; day < ConstData.DaysInWeek; day++)
+                    CreateCourtDay(court, startDate.AddDays(day));
+        }
+        /// <summary>
+        /// Creates a single court day document.
+        /// </summary>
+        /// <param name="courtNumber">The court number.</param>
+        /// <param name="date">The date for this court.</param>
         private void CreateCourtDay(int courtNumber, DateTime date)
         {
-            string dateKey = date.ToString("dd.MM.yyyy");
+            string dateKey = date.ToString(ConstData.DateFormat);
             List<Client> clients = new List<Client>();
-            for (int i = 0; i < 17; i++) clients.Add(new Client());
-
+            for (int i = 0; i < ConstData.HoursPerDay; i++)
+                clients.Add(new Client());
             object courtDoc = new
             {
                 date = dateKey,
                 CourtNumber = courtNumber,
                 Lclients = clients
             };
-
             data.SetDocument(courtDoc, ClubName, $"{courtNumber}_{dateKey}", t => { });
         }
-
-
-        
-
-
-        //private readonly FbData fbData = new();
-
-        //public override string ClubName { get; set; } = string.Empty;
-        //public override string Location { get; set; } = string.Empty;
-        //public override string Phone { get; set; } = string.Empty;
-        //public override string Email { get; set; } = string.Empty;
-        //public override int CourtsCount { get; set; } = 1;
-        //public override string StatusMessage { get; set; } = string.Empty;
-
-        //public override async Task<bool> CreateClubAsync(
-        //    DateTime startDate,
-        //    Action<Task> onComplete)
-        //{
-        //    if (string.IsNullOrWhiteSpace(ClubName))
-        //    {
-        //        StatusMessage = "Club name cannot be empty.";
-        //        return false;
-        //    }
-
-        //    // בדיקה אם מועדון כבר קיים
-        //    var clubsColl = fbData.fs.Collection("clubs");
-        //    var existing = await clubsColl
-        //        .WhereEqualsTo("name", ClubName)
-        //        .GetAsync();
-
-        //    if (existing.Count > 0)
-        //    {
-        //        StatusMessage = "Club already exists!";
-        //        return false;
-        //    }
-
-        //    string loggedInEmail =
-        //        Preferences.Get(Keys.EmailKey, string.Empty);
-
-        //    // יצירת מסמך מועדון
-        //    var clubDoc = new
-        //    {
-        //        name = ClubName,
-        //        location = Location,
-        //        phone = Phone,
-        //        email = Email,
-        //        userEmail = loggedInEmail,
-        //        courtsCount = CourtsCount
-        //    };
-
-        //    fbData.SetDocument(clubDoc, "clubs", string.Empty, onComplete);
-
-        //    // יצירת collection בשם המועדון
-        //    var clubCollection = fbData.fs.Collection(ClubName);
-
-        //    for (int court = 1; court <= CourtsCount; court++)
-        //    {
-        //        for (int day = 0; day < 7; day++)
-        //        {
-        //            DateTime date = startDate.AddDays(day);
-        //            string dateKey = date.ToString("dd.MM.yyyy");
-
-        //            var clients = new List<Client>();
-        //            for (int i = 0; i < 17; i++)
-        //            {
-        //                clients.Add(new Client()); // לקוח ריק = שעה פנויה
-        //            }
-
-        //            var courtDoc = new
-        //            {
-        //                date = dateKey,
-        //                courtNumber = court,
-        //                Lclients = clients
-        //            };
-
-        //            fbData.SetDocument(
-        //                courtDoc,
-        //                ClubName,
-        //                $"{court}_{dateKey}",
-        //                onComplete);
-        //        }
-        //    }
-
-        //    StatusMessage = "Club created successfully!";
-        //    return true;
-        //}
-        //private readonly FbData fbData = new();
-
-        //public override string ClubName { get; set; } = string.Empty;
-        //public override string Location { get; set; } = string.Empty;
-        //public override string Phone { get; set; } = string.Empty;
-        //public override string Email { get; set; } = string.Empty;
-        //public override int CourtsCount { get; set; } = 1;
-        //public override string StatusMessage { get; set; } = string.Empty;
-
-        //    public override async Task<bool> CreateClubAsync(DateTime startDate, Action<System.Threading.Tasks.Task> onComplete)
-        //{
-        //    if (string.IsNullOrWhiteSpace(ClubName))
-        //    {
-        //        StatusMessage = "Club name cannot be empty.";
-        //        return false;
-        //    }
-
-        //    var clubsColl = fbData.fs.Collection("clubs");
-        //    var querySnapshot = await clubsColl.WhereEqualsTo("name", ClubName).GetAsync();
-
-        //    if (querySnapshot.Count > 0)
-        //    {
-        //        StatusMessage = "Club already exists!";
-        //        return false;
-        //    }
-        //    string loggedInEmail = Preferences.Get(Keys.EmailKey, string.Empty);
-
-        //    var clubDocObj = new
-        //    {
-        //        name = ClubName,
-        //        location = Location,
-        //        phone = Phone,
-        //        email = Email,
-        //        userEmail = loggedInEmail,
-        //        courtsCount = CourtsCount,
-        //    };
-        //    fbData.SetDocument(clubDocObj, "clubs", String.Empty, onComplete);
-
-        //    // 3️⃣ יוצרים collection בשם המועדון עצמו
-        //    var clubCollection = fbData.fs.Collection(ClubName);
-
-        //    for (int court = 1; court <= CourtsCount; court++)
-        //    {
-        //        for (int day = 0; day < 7; day++)
-        //        {
-        //            DateTime date = startDate.AddDays(day);
-        //            string dateKey = date.ToString("dd.MM.yyyy");
-        //            string[] clients = new string[17];
-        //            for (int i = 0; i < 17; i++)
-        //            {
-        //                clients[i] = string.Empty;
-        //            }
-
-        //            var docObj = new
-        //            {
-        //                date = dateKey,
-        //                courtNumber = court,
-        //                clients= clients
-        //            };
-
-        //            fbData.SetDocument(docObj, ClubName, String.Empty, onComplete);
-        //        }
-        //    }
-
-        //    StatusMessage = "Club created successfully!";
-        //    return true;
-        //}
+        /// <summary>
+        /// Validates all input fields.
+        /// </summary>
+        /// <returns>Error message if validation fails, empty string if valid.</returns>
+        private string ValidateFields()
+        {
+            string error = string.Empty;
+            string loggedInEmail = Preferences.Get(Keys.EmailKey, string.Empty);
+            if (string.IsNullOrWhiteSpace(loggedInEmail))
+            {
+                error = Strings.NotLoggedIn;
+            }
+            else if (string.IsNullOrWhiteSpace(ClubName))
+            {
+                error = Strings.ClubNameEmpty;
+            }
+            else if (string.IsNullOrWhiteSpace(Location))
+            {
+                error = Strings.LocationEmpty;
+            }
+            else if (string.IsNullOrWhiteSpace(Phone))
+            {
+                error = Strings.PhoneEmpty;
+            }
+            else if (!IsPhoneValid(Phone))
+            {
+                error = Strings.PhoneInvalid;
+            }
+            else if (string.IsNullOrWhiteSpace(Email))
+            {
+                error = Strings.ClubEmailEmpty;
+            }
+            else if (!IsEmailValid(Email))
+            {
+                error = Strings.ClubEmailInvalid;
+            }
+            return error;
+        }
+        /// <summary>
+        /// Checks if phone number contains only digits.
+        /// </summary>
+        /// <param name="phone">The phone number to validate.</param>
+        /// <returns>True if valid.</returns>
+        private static bool IsPhoneValid(string phone)
+        {
+            bool isValid = true;
+            for (int i = 0; i < phone.Length && isValid; i++)
+            {
+                char c = phone[i];
+                if (c < '0' || c > '9')
+                    isValid = false;
+            }
+            return isValid;
+        }
+        /// <summary>
+        /// Checks if email format is valid.
+        /// </summary>
+        /// <param name="email">The email to validate.</param>
+        /// <returns>True if valid.</returns>
+        private static bool IsEmailValid(string email)
+        {
+            return email.Contains('@') && email.Contains('.');
+        }
+        #endregion
     }
 }

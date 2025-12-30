@@ -38,6 +38,7 @@ namespace CourtInvitor
         }
         private void OnMessageReceived(TimerSettings value)
         {
+            mTimer?.Cancel();
             mTimer = new MyTimer(value.TotalTimeInMilliseconds, value.IntervalInMilliseconds);
             mTimer.Start();
         }

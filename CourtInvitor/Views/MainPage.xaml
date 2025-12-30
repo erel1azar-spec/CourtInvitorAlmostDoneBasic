@@ -6,42 +6,38 @@
     xmlns:m="clr-namespace:CourtInvitor.Models"
     xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
     x:DataType="vm:MainPageVM">
-
     <Grid>
-        <!-- Background Image -->
-        <Image Source="background.png"
-           Aspect="AspectFill"
-           Grid.RowSpan="1"
-           Grid.ColumnSpan="1"/>
-
-        <!-- Main Content -->
-        <ScrollView>
+        <Image
+            Source="background.jpeg"
+            Aspect="AspectFill" />
+        <Border
+            BackgroundColor="#CC1A1A2E"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            Padding="30"
+            Margin="20"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
             <VerticalStackLayout
-            Padding="30,30"
-            Spacing="25">
+                Spacing="20"
+                HorizontalOptions="Center">
                 <Label
-                Text="{Binding WelcomeUserName}"
-                HorizontalOptions="Center"
-                TextColor="White"
-                FontSize="40"
-                HorizontalTextAlignment="Center"/>
+                    Text="{Binding WelcomeUserName}"
+                    TextColor="White"
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
                 <Button
-                IsVisible="{Binding LoginVisibility}"
-                Text="{x:Static m:Strings.LoginOrRegisterButton}"
-                BorderColor="Blue"
-                BorderWidth="2"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Command="{Binding NavToLoginCommand}"/>
+                    IsVisible="{Binding LoginVisibility}"
+                    Text="{x:Static m:Strings.LoginOrRegisterButton}"
+                    Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding NavToLoginCommand}" />
                 <Button
-                IsVisible="{Binding SignOutVisibility}"
-                Text="{x:Static m:Strings.SignOutButton}"
-                BorderColor="Blue"
-                BorderWidth="2"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Command="{Binding SignOutCommand}"/>
+                    IsVisible="{Binding SignOutVisibility}"
+                    Text="{x:Static m:Strings.SignOutButton}"
+                    Style="{StaticResource NavigationButtonStyle}"
+                    Command="{Binding SignOutCommand}" />
             </VerticalStackLayout>
-        </ScrollView>
+        </Border>
     </Grid>
 </ContentPage>

@@ -5,34 +5,64 @@
              xmlns:m="clr-namespace:CourtInvitor.Models"
              xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
              x:DataType="vm:AdminExistsClientsVM">
-    <!--<Grid>
-        --><!--  Background Image  --><!--
+    <Grid FlowDirection="LeftToRight">
         <Image
-            Grid.RowSpan="1"
-            Grid.ColumnSpan="1"
             Aspect="AspectFill"
-            Source="background.png" />
-        --><!--  Back Arrow Button  --><!--
+            Source="background.jpeg" />
         <Button
-            Margin="5"
-            BackgroundColor="Transparent"
-            Command="{Binding NavBackHomeCommand}"
-            FontFamily="MaterialSymbols"
-            FontSize="28"
-            HorizontalOptions="End"
             Text="{StaticResource IconArrow_left_alt}"
+            Style="{StaticResource BackButtonStyle}"
             TextColor="White"
-            VerticalOptions="Start"
-            ZIndex="1" />
-        <CollectionView ItemsSource="{Binding Hours}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="m:CourtHourModel">
+            HorizontalOptions="Start"
+            Command="{Binding NavBackHomeCommand}" />
+        <ScrollView Margin="20,60,20,20">
+            <Border
+                BackgroundColor="#CC1A1A2E"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="15"
+                HorizontalOptions="Fill">
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Fill" FlowDirection="LeftToRight">
                     <Label
-                Margin="10"
-                FontSize="18"
-                Text="{Binding DisplayText}" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>-->
+                        Text="{Binding PageTitle}"
+                        TextColor="White"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Margin="0,0,0,10" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Hours}" Spacing="4" HorizontalOptions="Fill">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="m:AdminHourSlotModel">
+                                <Border
+                                    BackgroundColor="#4A5568"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="15,12"
+                                    HorizontalOptions="Fill">
+                                    <HorizontalStackLayout Spacing="10" FlowDirection="LeftToRight">
+                                        <Label
+                                            Text="{Binding TimeText}"
+                                            TextColor="White"
+                                            FontSize="14"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Text="-"
+                                            TextColor="White"
+                                            FontSize="14"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Text="{Binding StatusText}"
+                                            TextColor="{Binding StatusTextColor}"
+                                            FontSize="14"
+                                            VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </ScrollView>
+    </Grid>
 </ContentPage>

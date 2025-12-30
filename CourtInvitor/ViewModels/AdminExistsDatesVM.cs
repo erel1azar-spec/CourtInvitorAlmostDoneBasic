@@ -5,89 +5,73 @@ using System.Windows.Input;
 
 namespace CourtInvitor.ViewModels
 {
-    internal class AdminExistsDatesVM : ObservableObject
+    /// <summary>
+    /// ViewModel for displaying admin dates list.
+    /// </summary>
+    internal class AdminExistsDatesVM : ObservableObject, IQueryAttributable
     {
-
-
-        //public ObservableCollection<AdminExistsDatesModel> AdminExistsDatesModel { get; set; } = new();
-        //public ICommand NavBackHomeCommand => new Command(NavHome);
-
-
-        //public AdminExistsDatesVM()
-        //{
-        //    LoadDates();
-        //}
-
-        //private async void LoadDates()
-        //{
-        //    var logic = new AdminExistsDates();
-        //    var dates = await logic.LoadDatesAsync();
-
-        //    AdminExistsDatesModel.Clear();
-
-        //    foreach (var date in dates)
-        //    {
-        //        // בכל מודל אנו מוסיפים את ה‑Command שלו
-        //        date.ClickCommand = new Command(() => OnDateClicked(date.DateText));
-        //        AdminExistsDatesModel.Add(date);
-        //    }
-        //}
-
-        //private async void OnDateClicked(string selectedDate)
-        //{
-        //    Preferences.Set(Keys.SelectedDate, selectedDate);
-        //    // כל כפתור מפנה לאותו עמוד
-        //    await Shell.Current.GoToAsync("///AdminExistsCourts?refresh=tru e");
-        //}
+        #region Fields
+        private readonly ObservableCollection<AdminExistsDatesModel> dates;
+        #endregion
+        #region Properties
+        /// <summary>
+        /// Gets the collection of dates.
+        /// </summary>
+        public ObservableCollection<AdminExistsDatesModel> Dates => dates;
+        #endregion
+        #region Commands
         public ICommand DateSelectedCommand { get; }
-
-        private readonly ObservableCollection<AdminExistsDatesModel>
-           dates;
-
-        public ObservableCollection<AdminExistsDatesModel>
-            Dates => dates;
-
         public ICommand NavBackHomeCommand { get; }
-
+        #endregion
+        #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the AdminExistsDatesVM class.
+        /// </summary>
         public AdminExistsDatesVM()
         {
-            dates =
-                new ObservableCollection<AdminExistsDatesModel>();
-
-            NavBackHomeCommand =
-                new Command(NavHome);
-
-            DateSelectedCommand=
-                new Command<string>(OnDateSelected);
-
+            dates = new ObservableCollection<AdminExistsDatesModel>();
+            NavBackHomeCommand = new Command(NavHome);
+            DateSelectedCommand = new Command<string>(OnDateSelected);
+        }
+        #endregion
+        #region Public Functions
+        /// <summary>
+        /// Applies query attributes when navigating to this page.
+        /// </summary>
+        /// <param name="query">The query parameters.</param>
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
             Load();
         }
-
+        #endregion
+        #region Private Functions
+        /// <summary>
+        /// Loads the dates from Firestore.
+        /// </summary>
         private async void Load()
         {
-            string clubName =
-                Preferences.Get(Keys.AdminSelectedClub, string.Empty);
-
-            List<AdminExistsDatesModel> result =
-                await AdminExistsDates
-                .LoadDatesAsync(clubName);
-
+            string clubName = Preferences.Get(Keys.AdminSelectedClub, string.Empty);
+            List<AdminExistsDatesModel> result = await AdminExistsDates.LoadDatesAsync(clubName);
             dates.Clear();
-
             foreach (AdminExistsDatesModel model in result)
                 dates.Add(model);
-            
         }
+        /// <summary>
+        /// Handles date selection.
+        /// </summary>
+        /// <param name="selectedDate">The selected date.</param>
         private void OnDateSelected(string selectedDate)
         {
             Preferences.Set(Keys.AdminSelectedDate, selectedDate);
-
             Shell.Current.GoToAsync("///AdminExistsCourts?refresh=true");
         }
-
+        /// <summary>
+        /// Navigates back to the clubs page.
+        /// </summary>
         private async void NavHome()
         {
-            await Shell.Current.GoToAsync("///AdminExistsClubs");
+            await Shell.Current.GoToAsync("///AdminExistsClubs?refresh=true");
         }
+        #endregion
     }
 }

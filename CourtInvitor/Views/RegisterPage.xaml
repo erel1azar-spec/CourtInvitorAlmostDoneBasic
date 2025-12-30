@@ -5,201 +5,121 @@
              xmlns:m="clr-namespace:CourtInvitor.Models"
              x:Class="CourtInvitor.Views.RegisterPage"
              x:DataType="vm:RegisterPageVM">
-    <!--<Grid>
-        --><!-- Background Image --><!--
-        <Image Source="background.png"
-               Aspect="AspectFill"
-               Grid.RowSpan="1"
-               Grid.ColumnSpan="1"/>
-
-        --><!-- Back Arrow Button --><!--
-        <Button 
-            FontFamily="MaterialSymbols"
-            Text="{StaticResource IconArrow_left_alt}"
-            FontSize="28"
-            TextColor="White"
-            HorizontalOptions="End"
-            VerticalOptions="Start"
-            Margin="5"
-            ZIndex="1"
-            BackgroundColor="Transparent"
-            Command="{Binding NavBackHomeCommand}"/>
-
-        --><!-- Main Content --><!--
-        <ScrollView>
-            <VerticalStackLayout
-                Padding="30,0"
-                Spacing="25">
-                <Label
-                FontAttributes="Bold"
-                FontSize="38"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Margin="0,60"
-                TextColor="White"
-                CharacterSpacing="1"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                Text="{x:Static m:Strings.RegisterTitle}"/>
-                <Border
-                    Padding="5"
-                    StrokeShape="RoundRectangle 8"
-                    StrokeThickness="2">
-                    <Entry 
-                        Margin="5"
-                        Placeholder="{x:Static m:Strings.UserName}"
-                        ClearButtonVisibility="WhileEditing"
-                        FontSize="20"
-                        TextColor="White"
-                        ReturnType="Go"
-                        FlowDirection="LeftToRight"
-                        Text="{Binding UserName}"/>
-                </Border>
-                <Border
-                    Padding="5"
-                    StrokeShape="RoundRectangle 8"
-                    StrokeThickness="2">
-                    <Entry 
-                        Margin="5"
-                        Placeholder="{x:Static m:Strings.Email}"
-                        ClearButtonVisibility="WhileEditing"
-                        FontSize="20"
-                        TextColor="White"
-                        ReturnType="Go"
-                        FlowDirection="LeftToRight"
-                        Text="{Binding Email}"/>
-                </Border>
-                <Border
-                    Padding="5"
-                    StrokeShape="RoundRectangle 8"
-                    StrokeThickness="2">
-                    <Grid ColumnDefinitions="*,Auto"
-                          FlowDirection="LeftToRight">
-                        <Entry 
-                            Placeholder="{x:Static m:Strings.Password}"
-                            ClearButtonVisibility="WhileEditing"
-                            FlowDirection="LeftToRight"
-                            TextColor="White"
-                            FontSize="20"
-                            ReturnType="Done"
-                            Margin="5"
-                            Text="{Binding Password}"
-                            IsPassword="{Binding IsPassword}"/>
-                        <Button
-                            BackgroundColor="Transparent"
-                            Grid.Column="1"
-                            Command="{Binding ToggleIsPasswordCommand}"
-                            FontFamily="MaterialSymbols"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            TextColor="White"
-                            FontSize="23"
-                            Text="{Binding IsPassword, Converter={StaticResource passwordIconConvert}}"/>
-                    </Grid>
-                </Border>
-                <Border
-    Padding="5"
-    StrokeShape="RoundRectangle 8"
-    StrokeThickness="2">
-                    <Picker 
-        Title="Select your Role"
-        ItemsSource="{Binding Roles}"
-        SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
-        TextColor="White"
-        FontSize="20"
-        Margin="5"/>
-                </Border>
-                <Button
-                    Text="{x:Static m:Strings.SubmitRegisterButtonText}"
-                    HorizontalOptions="Center"
-                    FontSize="20"
-                    Command="{Binding RegisterCommand}"/>
-                <Label HorizontalOptions="Center" FontSize="17" Margin="0,25,0,0">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{x:Static m:Strings.OwnAccountText}" TextColor="White" />
-                            <Span Text="{x:Static m:Strings.Login}" TextColor="LightBlue" TextDecorations="Underline">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavToLoginCommand}" />
-                                </Span.GestureRecognizers>
-                            </Span>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </VerticalStackLayout>
-        </ScrollView>
-    </Grid>-->
     <Grid>
         <Image
             Aspect="AspectFill"
-            Source="background.png" />
-
+            Source="background.jpeg" />
         <ScrollView>
-            <VerticalStackLayout Padding="30" Spacing="20">
-
-                <Label
-                    Text="{x:Static m:Strings.RegisterTitle}"
-                    FontSize="30"
-                    HorizontalOptions="Center"
-                    TextColor="White" />
-
-                <Entry
-                    Placeholder="{x:Static m:Strings.UserName}"
-                    Text="{Binding UserName}"
-                    TextColor="White" />
-
-                <Entry
-                    Placeholder="{x:Static m:Strings.Email}"
-                    Text="{Binding Email}"
-                    TextColor="White" />
-
-                <Grid ColumnDefinitions="*,Auto">
-                    <Entry
-                        Placeholder="{x:Static m:Strings.Password}"
-                        Text="{Binding Password}"
-                        IsPassword="{Binding IsPassword}"
-                        TextColor="White" />
-
-                    <Button
-                        Grid.Column="1"
-                        BackgroundColor="Transparent"
-                        FontFamily="MaterialSymbols"
-                        FontSize="24"
+            <Border
+                BackgroundColor="#CC1A1A2E"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="25"
+                Margin="20"
+                VerticalOptions="Center"
+                HorizontalOptions="Fill">
+                <VerticalStackLayout
+                    Spacing="12"
+                    FlowDirection="LeftToRight">
+                    <Label
+                        Text="{x:Static m:Strings.RegisterTitle}"
                         TextColor="White"
-                        Command="{Binding ToggleIsPasswordCommand}"
-                        Text="{Binding IsPassword,
-                               Converter={StaticResource passwordIconConvert}}" />
-                </Grid>
-
-                <Picker
-                    ItemsSource="{Binding Roles}"
-                    SelectedItem="{Binding SelectedRole}"
-                    TextColor="White" />
-
-                <Button
-                    Text="{x:Static m:Strings.SubmitRegisterButtonText}"
-                    Command="{Binding RegisterCommand}" />
-
-                <Label HorizontalOptions="Center">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span
-                                Text="{x:Static m:Strings.OwnAccountText}"
-                                TextColor="White" />
-                            <Span
-                                Text="{x:Static m:Strings.Login}"
-                                TextColor="LightBlue"
-                                TextDecorations="Underline">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding NavToLoginCommand}" />
-                                </Span.GestureRecognizers>
-                            </Span>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-
-            </VerticalStackLayout>
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start" />
+                    <Border
+                        Padding="12"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0"
+                        BackgroundColor="#E8FFFFFF">
+                        <Entry
+                            Placeholder="{x:Static m:Strings.UserName}"
+                            Text="{Binding UserName}"
+                            TextColor="#1A1A2E"
+                            PlaceholderColor="#666666"
+                            HorizontalTextAlignment="Start"
+                            HorizontalOptions="Fill"
+                            FlowDirection="LeftToRight" />
+                    </Border>
+                    <Border
+                        Padding="12"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0"
+                        BackgroundColor="#E8FFFFFF">
+                        <Entry
+                            Placeholder="{x:Static m:Strings.Email}"
+                            Text="{Binding Email}"
+                            TextColor="#1A1A2E"
+                            PlaceholderColor="#666666"
+                            HorizontalTextAlignment="Start"
+                            HorizontalOptions="Fill"
+                            FlowDirection="LeftToRight" />
+                    </Border>
+                    <Border
+                        Padding="12"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0"
+                        BackgroundColor="#E8FFFFFF">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Entry
+                                Placeholder="{x:Static m:Strings.Password}"
+                                Text="{Binding Password}"
+                                IsPassword="{Binding IsPassword}"
+                                TextColor="#1A1A2E"
+                                PlaceholderColor="#666666"
+                                HorizontalTextAlignment="Start"
+                                HorizontalOptions="Fill"
+                                FlowDirection="LeftToRight" />
+                            <Button
+                                Grid.Column="1"
+                                BackgroundColor="Transparent"
+                                FontFamily="MaterialSymbols"
+                                FontSize="22"
+                                TextColor="#1A1A2E"
+                                Command="{Binding ToggleIsPasswordCommand}"
+                                Text="{Binding IsPassword, Converter={StaticResource passwordIconConvert}}" />
+                        </Grid>
+                    </Border>
+                    <Border
+                        Padding="12"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0"
+                        BackgroundColor="#E8FFFFFF">
+                        <Picker
+                            ItemsSource="{Binding Roles}"
+                            SelectedItem="{Binding SelectedRole}"
+                            TextColor="#1A1A2E"
+                            Title="{x:Static m:Strings.SelectRoleTitle}"
+                            TitleColor="#666666"
+                            HorizontalOptions="Fill"
+                            FlowDirection="LeftToRight" />
+                    </Border>
+                    <Button
+                        Text="{x:Static m:Strings.SubmitRegisterButtonText}"
+                        Command="{Binding RegisterCommand}"
+                        Style="{StaticResource NavigationButtonStyle}" />
+                    <Label
+                        HorizontalOptions="Center"
+                        Margin="0,5,0,0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    Text="{x:Static m:Strings.OwnAccountText}"
+                                    TextColor="White" />
+                                <Span
+                                    Text="{x:Static m:Strings.Login}"
+                                    TextColor="#60A5FA"
+                                    TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding NavToLoginCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
         </ScrollView>
     </Grid>
 </ContentPage>

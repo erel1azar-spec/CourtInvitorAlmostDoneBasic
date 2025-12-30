@@ -1,11 +1,16 @@
 ﻿namespace CourtInvitor.Models
 {
+    /// <summary>
+    /// Contains all key constants used in the application.
+    /// </summary>
     internal class Keys
     {
         public const string Name = "name";
         public const string UserEmail = "userEmail";
+        public const string UsersCollection = "users";
+        public const string LclientsField = "Lclients";
         public const string Date = "date";
-        public const string CourtNumber = "courtNumber";
+        public const string CourtNumber = "CourtNumber";
         public const string ClubName = "name";
         public const string ClientSelectedDate = "clientSelectedDate";
         public const string ClientSelectedClub = "clientSelectedClub";
@@ -21,7 +26,7 @@
         public const string SelectedCourt = "SelectedCourt";
         public const string SelectedCourtNumber = "SelectedCourtNumber";
         public const string UserIdKey = "UserId";
-        public const string EmailRegisterd  = "firstName";
+        public const string EmailRegisterd = "firstName";
         public const string ProfilesCollection = "ProfileDetails";
         public const string LastNameKey = "lastName";
         public const string CityKey = "city";
@@ -44,15 +49,12 @@
         public const string MissingEmailErrorKey = "MISSING_EMAIL";
         public const string MissingPasswordErrorKey = "MISSING_PASSWORD";
         public const string InvalidEmailErrorKey = "INVALID_EMAIL";
-
         public const string InvalidCredentialsErrorKey = "INVALID_LOGIN_CREDENTIALS";
         public const string UserDisabledErrorKey = "USER_DISABLED";
         public const string ManyAttemptsErrorKey = "TOO_MANY_ATTEMPTS_TRY_LATER";
         public const int OneHourIntMiliseconds = 3600000;
-        public const long SessionTotalTime = 300000; // 5 minutes in milliseconds
-
-        public const long SessionInterval = 1000; // 1 second
-
-        public const long FinishedSignal =-1;
+        public const long SessionTotalTime = 300000;
+        public const long SessionInterval = 1000;
+        public const long FinishedSignal = -1;
     }
 }

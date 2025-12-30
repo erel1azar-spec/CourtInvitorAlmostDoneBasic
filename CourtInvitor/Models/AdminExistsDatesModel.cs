@@ -1,14 +1,13 @@
 ﻿namespace CourtInvitor.Models
 {
+    /// <summary>
+    /// Abstract model for admin existing dates.
+    /// </summary>
     public abstract class AdminExistsDatesModel
     {
-        //public abstract string Name { get;set; }
-        //public abstract string[] arr { get; set; }
-        //public abstract int temp { get; set; }
-
-
-        public abstract string DateText { get;}
-
-
+        /// <summary>
+        /// Gets the date display text.
+        /// </summary>
+        public abstract string DateText { get; }
     }
 }

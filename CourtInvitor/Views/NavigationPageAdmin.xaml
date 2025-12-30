@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CourtInvitor.Views.ClientReservationsPage"
+             x:Class="CourtInvitor.Views.NavigationPageAdmin"
              xmlns:m="clr-namespace:CourtInvitor.Models"
              xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
-             x:DataType="vm:ClientReservationsPageVM">
+             x:DataType="vm:NavigationPageAdminVM">
     <Grid>
         <Image
             Aspect="AspectFill"
@@ -22,12 +22,18 @@
             Margin="20"
             VerticalOptions="Center"
             HorizontalOptions="Center">
-            <Label
-                Text="{x:Static m:Strings.MyReservationsText}"
-                TextColor="White"
-                FontSize="24"
-                FontAttributes="Bold"
-                HorizontalOptions="Center" />
+            <VerticalStackLayout
+                Spacing="15"
+                HorizontalOptions="Center">
+                <Button
+                    Text="{x:Static m:Strings.AdminCreateCourt}"
+                    Command="{Binding NavToCreateCourtCommand}"
+                    Style="{StaticResource NavigationButtonStyle}" />
+                <Button
+                    Text="{x:Static m:Strings.AdminReservationsMade}"
+                    Command="{Binding NavToReservationsMadeCommand}"
+                    Style="{StaticResource NavigationButtonStyle}" />
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>

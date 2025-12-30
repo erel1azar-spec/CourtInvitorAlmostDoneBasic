@@ -1,9 +1,13 @@
 ﻿namespace CourtInvitor.Models
 {
+    /// <summary>
+    /// Abstract model for client existing club list.
+    /// </summary>
     public abstract class ClientExistingClubListModel
     {
-        //public string ClubText { get; set; } = string.Empty;
-        //public ICommand ClickCommand { get; set; }
+        /// <summary>
+        /// Gets the club display text.
+        /// </summary>
         public abstract string ClubText { get; }
     }
 }

@@ -2,15 +2,23 @@
 using CourtInvitor.Models;
 using CourtInvitor.ModelsLogic;
 using System.Windows.Input;
-
 namespace CourtInvitor.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the login page.
+    /// </summary>
     internal class LoginPageVM : ObservableObject
     {
+        #region Fields
         private string email = string.Empty;
         private string password = string.Empty;
         private bool isPassword = true;
         private readonly User user;
+        #endregion
+        #region Properties
+        /// <summary>
+        /// Gets or sets the email address.
+        /// </summary>
         public string Email
         {
             get => email;
@@ -23,6 +31,9 @@ namespace CourtInvitor.ViewModels
                 }
             }
         }
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
         public string Password
         {
             get => password;
@@ -35,6 +46,9 @@ namespace CourtInvitor.ViewModels
                 }
             }
         }
+        /// <summary>
+        /// Gets or sets whether password is hidden.
+        /// </summary>
         public bool IsPassword
         {
             get => isPassword;
@@ -47,10 +61,17 @@ namespace CourtInvitor.ViewModels
                 }
             }
         }
+        #endregion
+        #region Commands
         public ICommand ToggleIsPasswordCommand { get; }
         public ICommand LoginCommand { get; }
         public ICommand NavBackHomeCommand { get; }
         public ICommand NavToRegisterCommand { get; }
+        #endregion
+        #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the LoginPageVM class.
+        /// </summary>
         public LoginPageVM()
         {
             user = new User();
@@ -59,137 +80,57 @@ namespace CourtInvitor.ViewModels
             NavBackHomeCommand = new Command(NavigateBackHome);
             NavToRegisterCommand = new Command(NavigateToRegister);
         }
+        #endregion
+        #region Private Functions
+        /// <summary>
+        /// Toggles password visibility.
+        /// </summary>
         private void ToggleIsPassword()
         {
             IsPassword = !IsPassword;
         }
-
+        /// <summary>
+        /// Performs the login operation.
+        /// </summary>
         private async Task LoginAsync()
         {
             user.Email = Email;
             user.Password = Password;
             bool success = await user.Login();
-            if (!success)
-                return;
-            Session session = new Session();
-
+            if (success)
+            {
+                InitializeSession();
+                if (user.Role == Strings.Admin)
+                    await Shell.Current.GoToAsync("///NavigationPageAdmin");
+                else
+                    await Shell.Current.GoToAsync("///NavigationPageClient");
+            }
+        }
+        /// <summary>
+        /// Initializes the user session timer.
+        /// </summary>
+        private static void InitializeSession()
+        {
             WeakReferenceMessenger.Default.Send(
                 new AppMessage<TimerSettings>(
                     new TimerSettings(
                         Keys.SessionTotalTime,
                         Keys.SessionInterval)));
-
-            if (user.Role == Strings.Admin)
-                    await Shell.Current.GoToAsync("///NavigataionPageAdmin");
-                else
-                    await Shell.Current.GoToAsync("///NavigationPageClient");
-            
         }
-
+        /// <summary>
+        /// Navigates back to the home page.
+        /// </summary>
         private async void NavigateBackHome()
         {
             await Shell.Current.GoToAsync("///MainPage?refresh=true");
         }
-
+        /// <summary>
+        /// Navigates to the registration page.
+        /// </summary>
         private async void NavigateToRegister()
         {
             await Shell.Current.GoToAsync("///RegisterPage");
         }
-        //public ICommand NavToRegisterCommand => new Command(NavToRegister);
-        //public ICommand NavBackHomeCommand => new Command(NavHome);
-        //public ICommand LoginCommand { get; }
-        //public ICommand ToggleIsPasswordCommand { get; }
-        //private App? app;
-        //private User user;
-        //public bool IsBusy { get; set; } = false;
-        //public string Email
-        //{
-        //    get => user.Email;
-        //    set
-        //    {
-        //        user.Email = value;
-        //        (LoginCommand as Command)?.ChangeCanExecute();
-        //    }
-        //}
-        //public string Password
-        //{
-        //    get => user.Password;
-        //    set
-        //    {
-        //        user.Password = value;
-        //        (LoginCommand as Command)?.ChangeCanExecute();
-        //    }
-        //}
-        //public bool IsPassword { get; set; } = true;
-        //public LoginPageVM()
-        //{
-        //    app = Application.Current as App;
-        //    user = app!.user;
-        //    LoginCommand = new Command(async () => await Login());
-        //    ToggleIsPasswordCommand = new Command(ToggleIsPassword);
-        //}
-        //private void ToggleIsPassword()
-        //{
-        //    IsPassword = !IsPassword;
-        //    OnPropertyChanged(nameof(IsPassword));
-        //}
-        //private bool CanLogin()
-        //{
-        //    return user.CanLogin();
-        //}
-        //private async Task Login()
-        //{
-
-
-        //    //IsBusy = true;
-        //    // OnPropertyChanged(nameof(IsBusy));
-        //    // bool successfullyLogged = await user.Login();
-        //    // IsBusy = false;
-        //    // OnPropertyChanged(nameof(IsBusy));
-        //    // if (successfullyLogged)
-        //    //     await Shell.Current.GoToAsync("///NavigationPageClient?refresh=true");
-        //    IsBusy = true;
-        //    OnPropertyChanged(nameof(IsBusy));
-        //    bool successfullyLogged = await user.Login();
-        //    IsBusy = false;
-        //    OnPropertyChanged(nameof(IsBusy));
-
-        //    if (successfullyLogged)
-        //    {
-        //        if (user.Role == Strings.Admin)
-        //            await Shell.Current.GoToAsync("///NavigationPageAdmin?refresh=true");
-        //        else
-        //            await Shell.Current.GoToAsync("///NavigationPageClient?refresh=true");
-        //    }
-
-
-        //}
-        //public void ApplyQueryAttributes(IDictionary<string, object> query)
-        //{
-        //    app = Application.Current as App;
-        //    user = app!.user;
-        //    RefreshProperties();
-        //}
-        //private void RefreshProperties()
-        //{
-        //    IsPassword = true;
-        //    SeveralPropertiesChange();
-        //}
-        //private void SeveralPropertiesChange()
-        //{
-        //    string[] nameOfs = { nameof(Email), nameof(Password), nameof(IsPassword) };
-        //    for (int i = 0; i < nameOfs.Length; i++)
-        //        OnPropertyChanged(nameOfs[i]);
-        //}
-        //private async void NavToRegister()
-        //{
-        //    await Shell.Current.GoToAsync("///RegisterPage?refresh=true");
-        //}
-        //private async void NavHome()
-        //{
-        //    await Shell.Current.GoToAsync("///MainPage?refresh=true");
-        //}
+        #endregion
     }
 }
-
-

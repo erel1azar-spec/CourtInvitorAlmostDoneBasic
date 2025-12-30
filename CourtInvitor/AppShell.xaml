@@ -14,7 +14,7 @@
         <ShellContent ContentTemplate="{DataTemplate v:NavigationPageClient}" Route="NavigationPageClient" />
         <ShellContent ContentTemplate="{DataTemplate v:MakeReservationClientPage}" Route="MakeReservationClientPage" />
         <ShellContent ContentTemplate="{DataTemplate v:ClientReservationsPage}" Route="ClientReservationsPage" />
-        <ShellContent ContentTemplate="{DataTemplate v:NavigataionPageAdmin}" Route="NavigataionPageAdmin" />
+        <ShellContent ContentTemplate="{DataTemplate v:NavigationPageAdmin}" Route="NavigationPageAdmin" />
         <ShellContent ContentTemplate="{DataTemplate v:CreateClubPage}" Route="CreateClubPage" />
         <ShellContent ContentTemplate="{DataTemplate v:AdminExistsClubs}" Route="AdminExistsClubs" />
         <ShellContent ContentTemplate="{DataTemplate v:AdminExistsDates}" Route="AdminExistsDates" />

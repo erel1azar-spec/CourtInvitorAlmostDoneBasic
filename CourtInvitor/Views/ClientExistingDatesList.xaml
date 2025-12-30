@@ -2,41 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CourtInvitor.Views.ClientExistingDatesList"
-                 xmlns:m="clr-namespace:CourtInvitor.Models"
-    xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
-    x:DataType="vm:ClientExistingDatesListVM">
+             xmlns:m="clr-namespace:CourtInvitor.Models"
+             xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
+             x:DataType="vm:ClientExistingDatesListVM">
     <Grid>
-        <!--  Background Image  -->
         <Image
-        Grid.RowSpan="1"
-        Grid.ColumnSpan="1"
-        Aspect="AspectFill"
-        Source="background.png" />
-        <!--  Back Arrow Button  -->
+            Aspect="AspectFill"
+            Source="background.jpeg" />
         <Button
-        Margin="5"
-        BackgroundColor="Transparent"
-        Command="{Binding NavBackHomeCommand}"
-        FontFamily="MaterialSymbols"
-        FontSize="28"
-        HorizontalOptions="End"
-        Text="{StaticResource IconArrow_left_alt}"
-        TextColor="White"
-        VerticalOptions="Start"
-        ZIndex="1" />
-        <CollectionView
-    ItemsSource="{Binding DatesClient}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="m:ClientExistingDatesListModel">
-                    <Button
-                Style="{StaticResource DateButtonStyle}"
-                Margin="10"
-                FontSize="18"
-                Text="{Binding DateTextClient}" 
-                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientExistingDatesListVM}}, Path=DateSelectedCommand}"
-                        CommandParameter="{Binding DateTextClient}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            Text="{StaticResource IconArrow_left_alt}"
+            Style="{StaticResource BackButtonStyle}"
+            TextColor="White"
+            Command="{Binding NavBackHomeCommand}" />
+        <Border
+            BackgroundColor="#CC1A1A2E"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            Padding="15"
+            Margin="20,60,20,20">
+            <CollectionView ItemsSource="{Binding DatesClient}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:ClientExistingDatesListModel">
+                        <Button
+                            Text="{Binding DateTextClient}"
+                            Style="{StaticResource DateButtonStyle}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientExistingDatesListVM}}, Path=DateSelectedCommand}"
+                            CommandParameter="{Binding DateTextClient}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
     </Grid>
 </ContentPage>

@@ -6,37 +6,32 @@
     xmlns:m="clr-namespace:CourtInvitor.Models"
     xmlns:vm="clr-namespace:CourtInvitor.ViewModels"
     x:DataType="vm:AdminExistsDatesVM">
-
     <Grid>
         <Image
-            Grid.RowSpan="1"
-            Grid.ColumnSpan="1"
             Aspect="AspectFill"
-            Source="background.png" />
+            Source="background.jpeg" />
         <Button
-            Margin="5"
-            BackgroundColor="Transparent"
-            Command="{Binding NavBackHomeCommand}"
-            FontFamily="MaterialSymbols"
-            FontSize="28"
-            HorizontalOptions="End"
             Text="{StaticResource IconArrow_left_alt}"
+            Style="{StaticResource BackButtonStyle}"
             TextColor="White"
-            VerticalOptions="Start"
-            ZIndex="1" />
-        <CollectionView
-            ItemsSource="{Binding Dates}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="m:AdminExistsDatesModel">
-                    <Button
-                        Style="{StaticResource DateButtonStyle}"
-                        Margin="10"
-                        FontSize="18"
-                        Text="{Binding DateText}" 
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminExistsDatesVM}}, Path=DateSelectedCommand}"
-                        CommandParameter="{Binding DateText}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            Command="{Binding NavBackHomeCommand}" />
+        <Border
+            BackgroundColor="#CC1A1A2E"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            Padding="15"
+            Margin="20,60,20,20">
+            <CollectionView ItemsSource="{Binding Dates}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:AdminExistsDatesModel">
+                        <Button
+                            Text="{Binding DateText}"
+                            Style="{StaticResource DateButtonStyle}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminExistsDatesVM}}, Path=DateSelectedCommand}"
+                            CommandParameter="{Binding DateText}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
     </Grid>
 </ContentPage>
