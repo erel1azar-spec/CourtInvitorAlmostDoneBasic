@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtReserve.Views.ClientExistingClubsPage"
+             xmlns:m="clr-namespace:CourtReserve.Models"
+             xmlns:vm="clr-namespace:CourtReserve.ViewModels"
+             x:DataType="vm:ClientExistingClubsPageVM">
+    <Grid>
+        <Image Aspect="AspectFill" Source="background.jpeg" />
+        <Button
+            Command="{Binding NavBackHomeCommand}"
+            Style="{StaticResource BackButtonStyle}"
+            Text="{StaticResource IconArrow_left_alt}"
+            TextColor="White" />
+        <Grid Margin="20,60,20,20" RowDefinitions="Auto,*">
+
+            <Border
+                Grid.Row="0"
+                Padding="15"
+                BackgroundColor="#CC1A1A2E"
+                StrokeShape="RoundRectangle 15"
+                StrokeThickness="0">
+                <VerticalStackLayout Spacing="8">
+                    <Border
+                        Padding="8"
+                        BackgroundColor="#E8FFFFFF"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0">
+                        <Picker
+                            Title="{x:Static m:Strings.FilterByDate}"
+                            FlowDirection="LeftToRight"
+                            HorizontalOptions="Fill"
+                            ItemsSource="{Binding DateOptions}"
+                            SelectedItem="{Binding SelectedDate}"
+                            TextColor="#1A1A2E"
+                            TitleColor="#666666" />
+                    </Border>
+                    <Border
+                        Padding="8"
+                        BackgroundColor="#E8FFFFFF"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="0">
+                        <Picker
+                            Title="{x:Static m:Strings.FilterByHour}"
+                            ItemsSource="{Binding HourOptions}"
+                            SelectedItem="{Binding SelectedHour}"
+                            FlowDirection="LeftToRight"
+                            HorizontalOptions="Fill"
+                            TextColor="#1A1A2E"
+                            TitleColor="#666666" />
+                    </Border>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button
+                            Grid.Column="0"
+                            Command="{Binding FilterCommand}"
+                            BackgroundColor="#2563EB"
+                            CornerRadius="10"
+                            TextColor="White"
+                            Text="{x:Static m:Strings.FilterButton}" />
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding ShowAllCommand}"
+                            BackgroundColor="#64748B"
+                            CornerRadius="10"
+                            TextColor="White"
+                            Text="{x:Static m:Strings.ShowAllButton}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="1"
+                Margin="0,10,0,0"
+                Padding="15"
+                BackgroundColor="#CC1A1A2E"
+                StrokeShape="RoundRectangle 20"
+                StrokeThickness="0">
+                <CollectionView ItemsSource="{Binding Clubs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:AdminExistingClubsTextModel">
+                            <Button
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientExistingClubsPageVM}}, Path=ClubSelectedCommand}"
+                                CommandParameter="{Binding ClubText}"
+                                Style="{StaticResource NavigationButtonStyle}"
+                                Text="{Binding ClubText}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+        </Grid>
+    </Grid>
+</ContentPage>

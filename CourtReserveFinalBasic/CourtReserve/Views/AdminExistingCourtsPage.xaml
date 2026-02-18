@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtReserve.Views.AdminExistingCourtsPage"
+             xmlns:m="clr-namespace:CourtReserve.Models"
+             xmlns:vm="clr-namespace:CourtReserve.ViewModels"
+             x:DataType="vm:AdminExistingCourtsPageVM">
+    <Grid>
+        <Image
+        Aspect="AspectFill"
+        Source="background.jpeg" />
+        <Button
+        Text="{StaticResource IconArrow_left_alt}"
+        Style="{StaticResource BackButtonStyle}"
+        TextColor="White"
+        Command="{Binding NavBackHomeCommand}" />
+        <Border
+        BackgroundColor="#CC1A1A2E"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 20"
+        Padding="15"
+        Margin="20,60,20,20">
+            <CollectionView ItemsSource="{Binding Courts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:AdminExistingCourtsTextModel">
+                        <Grid Margin="5">
+                            <Button
+                                Text="{Binding CourtText}"
+                                Style="{StaticResource DateButtonStyle}"
+                                WidthRequest="-1"
+                                HorizontalOptions="Fill"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminExistingCourtsPageVM}}, Path=CourtSelectedCommand}"
+                                CommandParameter="{Binding .}" />
+                            <Border
+                                Padding="8,4"
+                                BackgroundColor="#2D3748"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                Margin="0,0,10,0">
+                                <Label
+                                    Text="{Binding AvailabilityText}"
+                                    TextColor="#60A5FA"
+                                    FontSize="13" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</ContentPage>

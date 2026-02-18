@@ -8,7 +8,7 @@ namespace CourtInvitor.Models
     /// </summary>
     public abstract class FbDateModel
     {
-        #region Fields
+      #region Fields
         /// <summary>
         /// Firebase authentication client.
         /// </summary>
@@ -17,7 +17,7 @@ namespace CourtInvitor.Models
         /// Firestore instance.
         /// </summary>
         public IFirestore fs;
-        #endregion
+        #endregion  
         #region Properties
         /// <summary>
         /// Gets the current user's display name.

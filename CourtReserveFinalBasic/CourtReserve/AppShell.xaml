@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CourtReserve.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CourtReserve"
+    xmlns:v="clr-namespace:CourtReserve.Views"
+    Title="CourtReserve"
+    Shell.FlyoutBehavior="Disabled">
+
+    <ShellContent ContentTemplate="{DataTemplate v:LoginPage}" Route="LoginPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:RegisterPage}" Route="RegisterPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:NavigationPageAdmin}" Route="NavigationPageAdmin" />
+    <ShellContent ContentTemplate="{DataTemplate v:NavigationPageClient}" Route="NavigationPageClient" />
+    <ShellContent ContentTemplate="{DataTemplate v:CreateClubPage}" Route="CreateClubPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistingClubsPage}" Route="AdminExistingClubsPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistingDatesPage}" Route="AdminExistingDatesPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistingCourtsPage}" Route="AdminExistingCourtsPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:AdminExistingClientsPage}" Route="AdminExistingClientsPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingClubsPage}" Route="ClientExistingClubsPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingDatesPage}" Route="ClientExistingDatesPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingCourtsPage}" Route="ClientExistingCourtsPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingHoursPage}" Route="ClientExistingHoursPage" />
+    <ShellContent ContentTemplate="{DataTemplate v:ClientExistingReservationsPage}" Route="ClientExistingReservationsPage" />
+
+</Shell>

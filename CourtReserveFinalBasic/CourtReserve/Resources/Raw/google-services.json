@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "776364432616",
+    "project_id": "courtreserve-53d2b",
+    "storage_bucket": "courtreserve-53d2b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776364432616:android:9866125372f871f560bd5d",
+        "android_client_info": {
+          "package_name": "com.meitar.CourtReserve"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOMNO9-FroOUlzEUrMjtPa1kWrSC5o_0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

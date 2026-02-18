@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CourtReserve.Views.ClientExistingReservationsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:CourtReserve.Models"
+    xmlns:vm="clr-namespace:CourtReserve.ViewModels"
+    x:DataType="vm:ClientExistingReservationsPageVM">
+    <Grid>
+        <Image Aspect="AspectFill" Source="background.jpeg" />
+
+        <Button
+            Command="{Binding NavBackCommand}"
+            Style="{StaticResource BackButtonStyle}"
+            Text="{StaticResource IconArrow_left_alt}"
+            TextColor="White" />
+
+        <Border
+            Margin="20,60,20,20"
+            Padding="15"
+            BackgroundColor="#CC1A1A2E"
+            StrokeShape="RoundRectangle 20"
+            StrokeThickness="0">
+
+            <CollectionView ItemsSource="{Binding Bookings}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:ClientBookingTextModel">
+
+                        <VerticalStackLayout Style="{StaticResource CardStyle}">
+
+                            <Label Style="{StaticResource TitleLabelStyle}" Text="{Binding ClubName}" />
+
+                            <Label Text="{Binding Date}" />
+
+                            <Label Text="{Binding CourtText}" />
+                            <Label Text="{Binding HourText}" />
+
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Border>
+    </Grid>
+</ContentPage>

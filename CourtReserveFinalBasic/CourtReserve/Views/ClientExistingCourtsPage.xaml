@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourtReserve.Views.ClientExistingCourtsPage"
+             xmlns:m="clr-namespace:CourtReserve.Models"
+             xmlns:vm="clr-namespace:CourtReserve.ViewModels"
+             x:DataType="vm:ClientExistingCourtsPageVM">
+    <Grid>
+        <Image
+     Aspect="AspectFill"
+     Source="background.jpeg" />
+        <Button
+     Text="{StaticResource IconArrow_left_alt}"
+     Style="{StaticResource BackButtonStyle}"
+     TextColor="White"
+     Command="{Binding NavBackHomeCommand}" />
+        <Border
+     BackgroundColor="#CC1A1A2E"
+     StrokeThickness="0"
+     StrokeShape="RoundRectangle 20"
+     Padding="15"
+     Margin="20,60,20,20">
+            <CollectionView ItemsSource="{Binding Courts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:AdminExistingCourtsTextModel">
+                        <Button
+                     Text="{Binding CourtText}"
+                     Style="{StaticResource DateButtonStyle}"
+                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientExistingCourtsPageVM}}, Path=CourtSelectedCommand}"
+                     CommandParameter="{Binding .}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</ContentPage>
